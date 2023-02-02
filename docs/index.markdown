@@ -15,7 +15,11 @@ Michael Cooper, Kalp Patel, Aditya Shiroya, James Roll
 Spring 2023
 
 Links:
-[department]: (https://ccse.kennesaw.edu/)
-[university]: (https://kennesaw.edu/)
+[department](https://ccse.kennesaw.edu/)
+[university](https://kennesaw.edu/)
 
 Documentation:
+
+
+[department]: https://ccse.kennesaw.edu/
+[university]: https://kennesaw.edu/
