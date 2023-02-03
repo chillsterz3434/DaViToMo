@@ -9,7 +9,10 @@ AC 2 Data Visualizer for Topic Models
 
 Overview:
 
+The topical structure of text data, such as Wikipedia articles, may be revealed with the use of topic models, which are statistical models. Companies like Google make use of topic models to automatically find the numerous distinct topics on the internet. Our project goes one step further and builds a web-based system to inspect, investigate, and present a topic model built from a dataset. The model's topics and articles will be accessible to users through our system's straightforward and attractive data visualizations. You may save time and effort by having our system perform all the labor-intensive manual analysis on your behalf.
+
 Team Members:
+
 Michael Cooper, Kalp Patel, Aditya Shiroya, James Roll
 
 Spring 2023
