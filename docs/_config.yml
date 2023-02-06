@@ -29,7 +29,7 @@ github_username:  chillsterz3434
 # Build settings
 theme: minima
 plugins:
-  - jekyll-theme
+  - jekyll-feed
 
 # Exclude from processing.
 # The following items will not be processed, by default.
