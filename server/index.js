@@ -1,20 +1,20 @@
 // server/index.js
 
 const express = require("express");
-const {spawn} = require('child_process');
+// const {spawn} = require('child_process');
 
 
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 5000;
 
 const app = express();
 
-const { PythonShell } = require("python-shell");
+// const { PythonShell } = require("python-shell");
 
 
 
-app.get("/api", (req, res) => {
+app.get('/api', (req, res) => {
 
-    res.json({ message: "Hello from server!" })
+    res.json({ message: "Hello from server!" });
 
     // var dataToSend;
     // // spawn new child process to call the python script
@@ -30,7 +30,6 @@ app.get("/api", (req, res) => {
     //     // send data to browser
     //     res.send(dataToSend)
     // });
-    
 });
 
     
