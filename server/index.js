@@ -29,7 +29,10 @@ app.get('/api', (req, res) => {
         console.log(`child process close all stdio with code ${code}`);
         // send data to browser
         res.send({script: {dataToSend}})
+        res.end();
     });
+    
+    
 });
 
     
