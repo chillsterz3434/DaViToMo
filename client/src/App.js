@@ -30,10 +30,10 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        {/* <p>
+        <p>
           {!data ? "Loading..." : data}
-        </p> */}
-        Article Selection
+        </p>
+        {/* Article Selection
         <form onSubmit={handleSubmit}>
         <label>Enter an article:</label>
         <input
@@ -42,7 +42,7 @@ function App() {
           onChange={(e) => setTitle(e.target.value)}
           />
           <button>Run script</button>
-      </form>
+      </form> */}
       </header>
       
     </div>
