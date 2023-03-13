@@ -8,11 +8,11 @@ client = MongoClient("mongodb+srv://mgcooper5668:PXjTNQYupy7apST2@cluster0.0xcpy
 db = client["DaViToMo"]
 
 # # Create a new collection to store the articles
-collection = db["Articles"]
+collection = db["Articles2"]
 
 # This is the name of the Wikipedia page
-main_page = "Morty_Smith"  # from the TV show "Rick & Morty"
-# main_page = "Turing_Award"
+# main_page = "Morty_Smith"  # from the TV show "Rick & Morty"
+main_page = "Turing_Award"
 # main_page = "The_Matrix"
 
 # Fetch the webpage
