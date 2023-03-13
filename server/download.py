@@ -2,13 +2,12 @@ import re
 import wikipedia as wp
 from pymongo import MongoClient
 
-# Set up the MongoDB client and database
-client = pymongo.MongoClient("mongodb+srv://mgcooper5668:<password>@cluster0.0xcpymn.mongodb.net/?retryWrites=true&w=majority")
-db = client.test
+# # Set up the MongoDB client and database INSERT PERSONAL UNAME AND PWORD
+client = MongoClient("mongodb+srv://<USERNAME>:<PASSWORD>@cluster0.0xcpymn.mongodb.net/?retryWrites=true&w=majority")
 
 db = client["DaViToMo"]
 
-# Create a new collection to store the articles
+# # Create a new collection to store the articles
 collection = db["Articles"]
 
 # This is the name of the Wikipedia page
