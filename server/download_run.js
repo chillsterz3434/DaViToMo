@@ -18,7 +18,7 @@ app.get('/api', (req, res) => {
 
     var dataToSend;
     // spawn new child process to call the python script
-    const python = spawn('python', ['topic.py']);
+    const python = spawn('python', ['download.py']);
     // collect data from script
     python.stdout.on('data', function (data) {
         console.log('Pipe data from python script ...');
@@ -29,7 +29,10 @@ app.get('/api', (req, res) => {
         console.log(`child process close all stdio with code ${code}`);
         // send data to browser
         res.send({script: {dataToSend}})
+        res.end();
     });
+    
+    
 });
 
     
