@@ -7,8 +7,7 @@ client = MongoClient("mongodb+srv://<USERNAME>:<PASSWORD>@cluster0.0xcpymn.mongo
 
 db = client["DaViToMo"]
 
-# # Create a new collection to store the articles
-collection = db["Articles"]
+
 
 # This is the name of the Wikipedia page
 # main_page = "Morty_Smith"  # from the TV show "Rick & Morty"
@@ -16,6 +15,9 @@ collection = db["Articles"]
 # main_page = "The_Matrix"
 
 main_page = input("Enter an article with a _ between each word: ")
+
+# # Create a new collection to store the articles with the name of the main page
+collection = db["Articles"]
 
 # Fetch the webpage
 main = wp.page(main_page, auto_suggest=False)

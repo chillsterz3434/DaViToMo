@@ -1,9 +1,15 @@
-import glob
 import numpy as np
 from collections import defaultdict
+from download import main_page, client
+
+
+
+db = client["DaViToMo"]
+
+collection = db[main_page]
 
 class DataSet:
-    def __init__(self,dirname="data",
+    def __init__(self,dirname=collection,
                  length_limit=3,
                  count_limit=20):
         # lower bound on length of word
@@ -24,11 +30,9 @@ class DataSet:
 
     def _load_data(self,dirname):
         """Read all txt files in the dirname directory."""
-        filenames = glob.glob("%s/*.txt" % dirname)
-        for filename in filenames:
-            with open(filename,'r') as f:
-                lines = f.readlines()
-            title,pageid,text = lines
+        col = collection.find()
+        for page in col:
+            title,pageid,text = page['title'],page['id'],page['text']
             text = [ word.lower() for word in text.split() ]
             self.pages.append(text)
             self.titles.append(title)
