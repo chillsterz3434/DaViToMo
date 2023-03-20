@@ -1,10 +1,8 @@
-import glob
 import numpy as np
 from collections import defaultdict
-from pymongo import MongoClient
-from download import main_page
+from download import main_page, client
 
-client = MongoClient("mongodb+srv://mgcooper5668:PXjTNQYupy7apST2@cluster0.0xcpymn.mongodb.net/?retryWrites=true&w=majority")
+
 
 db = client["DaViToMo"]
 
