@@ -30,6 +30,7 @@ if yes != "y": exit()
 
 # Add page, and all links on page to the list of pages to download
 links = [main_page] + main.links
+
 for link in links:
     # Skip pages that are "List of" or "Category" pages
     if link.startswith("List"): continue
