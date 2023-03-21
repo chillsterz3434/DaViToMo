@@ -3,7 +3,7 @@ import wikipedia as wp
 from pymongo import MongoClient
 
 # # Set up the MongoDB client and database INSERT PERSONAL UNAME AND PWORD
-client = MongoClient("mongodb+srv://mgcooper5668:PXjTNQYupy7apST2@cluster0.0xcpymn.mongodb.net/?retryWrites=true&w=majority")
+client = MongoClient("mongodb+srv://<UsERNAME>:<PASSWORD>@cluster0.0xcpymn.mongodb.net/?retryWrites=true&w=majority")
 
 db = client["DaViToMo"]
 
@@ -11,7 +11,7 @@ db = client["DaViToMo"]
 
 # This is the name of the Wikipedia page
 # main_page = "Morty_Smith"  # from the TV show "Rick & Morty"
-main_page = "Turing_Award"
+# main_page = "Turing_Award"
 # main_page = "The_Matrix"
 
 # main_page = input("Enter an article with a _ between each word: ")
