@@ -11,8 +11,8 @@ db = client["DaViToMo"]
 
 # This is the name of the Wikipedia page
 # main_page = "Morty_Smith"  # from the TV show "Rick & Morty"
-# main_page = "Turing_Award"
-main_page = "The_Matrix"
+main_page = "Turing_Award"
+# main_page = "The_Matrix"
 
 # main_page = input("Enter an article with a _ between each word: ")
 
