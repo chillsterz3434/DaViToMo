@@ -50,3 +50,35 @@
 	</footer>
 </body>
 </html>
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Topic Model Search</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" type="text/css" href="style.css" />
+  </head>
+  <body>
+    <header>
+      <h1>Topic Model Search</h1>
+    </header>
+
+    <main>
+      <form>
+        <input type="text" id="search-input" placeholder="Search topics..." />
+        <button type="submit" id="search-btn">Search</button>
+      </form>
+
+      <section id="topic-similarity"></section>
+
+      <section id="topic-documents"></section>
+    </main>
+
+    <footer>
+      <p>&copy; 2023 Topic Model Search</p>
+    </footer>
+
+    <script src="app.js"></script>
+  </body>
+</html>
