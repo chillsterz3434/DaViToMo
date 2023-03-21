@@ -3,7 +3,7 @@ import wikipedia as wp
 from pymongo import MongoClient
 
 # # Set up the MongoDB client and database INSERT PERSONAL UNAME AND PWORD
-client = MongoClient("mongodb+srv://<USERNAME>:<PASSWORD>@cluster0.0xcpymn.mongodb.net/?retryWrites=true&w=majority")
+client = MongoClient("mongodb+srv://mgcooper5668:PXjTNQYupy7apST2@cluster0.0xcpymn.mongodb.net/?retryWrites=true&w=majority")
 
 db = client["DaViToMo"]
 
@@ -12,9 +12,9 @@ db = client["DaViToMo"]
 # This is the name of the Wikipedia page
 # main_page = "Morty_Smith"  # from the TV show "Rick & Morty"
 # main_page = "Turing_Award"
-# main_page = "The_Matrix"
+main_page = "The_Matrix"
 
-main_page = input("Enter an article with a _ between each word: ")
+# main_page = input("Enter an article with a _ between each word: ")
 
 # # Create a new collection to store the articles with the name of the main page
 collection = db[main_page]
@@ -25,10 +25,10 @@ if col == 0:
     main = wp.page(main_page, auto_suggest=False)
     print("== Downloading %s: %d links" % (main_page, len(main.links)))
 
-    print("Downloading to MongoDB database")
-    print("Type Y and Enter to continue")
-    yes = input().lower()
-    if yes != "y": exit()
+    # print("Downloading to MongoDB database")
+    # print("Type Y and Enter to continue")
+    # yes = input().lower()
+    # if yes != "y": exit()
 
     # Add page, and all links on page to the list of pages to download
     links = [main_page] + main.links
