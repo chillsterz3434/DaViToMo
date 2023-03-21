@@ -1,4 +1,4 @@
-/* .App {
+.App {
   text-align: center;
 }
 
@@ -15,38 +15,7 @@
 
 .App-link {
   color: #61dafb;
-} */
+} 
 
 
-<!DOCTYPE html>
-<html>
-<head>
-	<title>Topic Models Website</title>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" type="text/css" href="style.css">
-</head>
-<body>
-	<header>
-		<h1>Topic Models Website</h1>
-		<nav>
-			<ul>
-				<li><a href="#">Home</a></li>
-				<li><a href="#">About</a></li>
-				<li><a href="#">Contact</a></li>
-			</ul>
-		</nav>
-	</header>
-	
-	<main>
-		<section class="banner">
-			<h2>Welcome to our website!</h2>
-			<p>Learn more about topic models and how they can help you with your research projects.</p>
-			<a href="#" class="btn">Get Started</a>
-	</main>
-	
-	<footer>
-		<p>&copy; 2023 Topic Models Website</p>
-	</footer>
-</body>
-</html>
+
