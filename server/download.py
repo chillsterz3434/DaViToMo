@@ -1,13 +1,14 @@
 import re
 import wikipedia as wp
+import sys
 from pymongo import MongoClient
 
 # # Set up the MongoDB client and database INSERT PERSONAL UNAME AND PWORD
-client = MongoClient("mongodb+srv://<UsERNAME>:<PASSWORD>@cluster0.0xcpymn.mongodb.net/?retryWrites=true&w=majority")
+client = MongoClient("mongodb+srv://<USERNAME>:<PASSWORD>@cluster0.0xcpymn.mongodb.net/?retryWrites=true&w=majority")
 
 db = client["DaViToMo"]
 
-
+main_page = sys.argv[1]
 
 # This is the name of the Wikipedia page
 # main_page = "Morty_Smith"  # from the TV show "Rick & Morty"
