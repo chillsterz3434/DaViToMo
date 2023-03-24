@@ -1,10 +1,14 @@
 import re
+import os
 import wikipedia as wp
 import sys
 from pymongo import MongoClient
+from dotenv import load_dotenv
+
+load_dotenv()
 
 # # Set up the MongoDB client and database INSERT PERSONAL UNAME AND PWORD
-client = MongoClient("mongodb+srv://<USERNAME>:<PASSWORD>@cluster0.0xcpymn.mongodb.net/?retryWrites=true&w=majority")
+client = MongoClient(os.getenv('DB_URI'))
 
 db = client["DaViToMo"]
 
