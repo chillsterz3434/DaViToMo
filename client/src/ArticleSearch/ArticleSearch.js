@@ -1,83 +1,78 @@
 import { useEffect, useState } from "react";
+import { format } from 'react-string-format'
 import React from "react";
 import "./ArticleSearch.css";
 
 //TODO: Still need to figure out how to get article into the GET request
+//have the server be able to get a .js script and then run it and pipe it to the client
 
 function ArticleSearch() {
 
   const [searchInput, setSearchInput] = useState("");
   const [article, setArticle] = useState("");
   const [data, setData] = useState("");
-  const [url, setUrl] = useState("");
+  // const [url, setUrl] = useState("");
+  const [buttonContent, setButtonContent] = useState("")
 
 
+function filterData(event){
+  setSearchInput(event.target.value)
+}
 
   const handleClick = () => {
-    setArticle(searchInput);
-    setUrl('/api/'+article);
-    // submitArticle({title: article})
-  }
+    if(article!==""){
+      window.location.reload(true)
+    } else{
+      var key=searchInput.split(' ').join('_')
+      setArticle(key);
+      setButtonContent("Refresh Page")
+    }
+    
 
-  // React.useEffect(() => {
-  //   fetch("/api")
-  //     .then((res) => res.json())
-  //     .then((data) => setData(data.script.dataToSend))
-  // })
+  }
+  const form = document.querySelector('form')
+      if(form){
+        form.addEventListener('submit', (e) => {
+          e.preventDefault();
+          submitArticle(article)
+          
+        }, []);
+      }
   
-  // const form = document.querySelector('form')
-  // if(form){
-  //   form.addEventListener('submit', (e) => {
-  //     e.preventDefault();
-  //     submitArticle(article)
-  //   }, []);
-  // }
 
-  function filterData(event){
-    setSearchInput(event.target.value)
-  }
 
-  React.useEffect(() => {
-    fetch(url)
-    .then((res) => res.json())
-    .then((data) => setData(data.script.dataToSend))
-  }, [])
-
-  // async function submitArticle(a) {
-  //   try {
-  //     const response = await fetch('/api/', {
-  //       method: "GET",
-        
-  //     })
-  //     .then((res) => res.json())
-  //     .then((data) = setData(data.script.dataToSend))
-  //     if (!response.ok) {
-  //       throw new Error('Request failed with status '+response.status)
-  //     }
-  //     // const data = await response.json()
+  async function submitArticle(a) {
+    try {
+      const response = await fetch(`/api/articles/${a}`, {
+        method: "GET",
+        headers: {
+          "Content-type": "application/json()",
+        },
+        // body: JSON.stringify(a)
+      })
+      .then((res) => res.json())
+      .then((data) => setData(data.script.dataToSend))
+      if (!response.ok) {
+        throw new Error('Request failed with status '+response.status)
+      }
+      // const data = await response.json()
+      console.log('Article submitted: '+data)
+      console.log(response.body)
       
-  //     // console.log('Article submitted: '+data)
-  //     // console.log(response.body)
-  //   } catch (error) {
-  //     console.log(error)
-  //   }
-  // }
-  
-
-  
-
-
-
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
     return (
         
   <div>
 
     <main>
-      
-        <input type="text" name="article" placeholder="Enter article..."  onChange={filterData} value={searchInput}/>
-        <button type="submit" id="search-btn" onClick={handleClick}>Run Script</button>
-        
+      <form>
+        <input type="text" placeholder="Enter article..."  onChange={filterData} value={searchInput}/>
+        <button type="submit" id="search-btn" className="btn" onClick={handleClick}>{!buttonContent ? "Run Script" : buttonContent}</button>
+        </form>
 
       <div>
         <header>

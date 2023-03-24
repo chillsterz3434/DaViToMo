@@ -1,12 +1,13 @@
-
 const express = require("express");
 const bodyParser = require("body-parser");
 const {spawn} = require('child_process');
 const PORT = process.env.PORT || 5000;
 const app = express();
 const cors = require('cors');
+const { PythonShell } = 'python-shell'
+const controller = new AbortController();
+const signal = controller.signal;
 
-const { PythonShell } = require("python-shell");
 
 // Tell express to use the body-parser middleware and to not parse extended bodies
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -14,31 +15,12 @@ app.use(bodyParser.json());
 app.use(cors())
 
 
+app.get('/api/articles', (req, res) => {
+    res.json({message: "Hello from server"})
+})
 
 
-
-
-// app.get("/api", (req, res) => {
-//     res.json({title: article})
-// })
-
-// // Route that receives a POST request to /api
-// app.post('/api', function (req, res) {
-//   const body = req.query
-//   res.set('Content-Type', 'text/plain')
-//   console.log(body)
-// //   setArticle(article)
-//   res.send(body)
-  
-// })
-
-
-
-
-
-
-
-app.get('/api/:title', (req, res) => {
+ app.get('/api/articles/:title', (req, res) => {
     var dataToSend;
     // spawn new child process to call the python script
     const python = spawn('python', ['topic.py', req.params.title]);
@@ -52,11 +34,11 @@ app.get('/api/:title', (req, res) => {
         console.log(`child process close all stdio with code ${code}`);
         // send data to browser
         res.send({script: {dataToSend}})
+        
     });
-    
+    controller.abort();
 });
 
-    
 
 app.listen(PORT, () => {
     console.log(`Server listening on ${PORT}`);
