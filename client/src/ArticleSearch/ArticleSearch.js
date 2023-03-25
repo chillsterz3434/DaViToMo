@@ -31,7 +31,7 @@ function filterData(event){
 
   }
   const form = document.querySelector('form')
-      if(form){
+      if(form && article!=searchInput && article!=""){
         form.addEventListener('submit', (e) => {
           e.preventDefault();
           submitArticle(article)

@@ -51,6 +51,7 @@ main {
 
 .btn:hover {
 	background-color: #666;
+  cursor: pointer;
 }
 
 /* Homepage Styles */
