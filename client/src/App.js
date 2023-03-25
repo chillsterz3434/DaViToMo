@@ -1,29 +1,25 @@
-import logo from './logo.svg';
-import './App.css';
+import {Routes, Route} from 'react-router-dom'
+import HomePage from './HomePage/HomePage';
+import SearchPage from './ArticleSearch/ArticleSearch';
+import "./App.css";
+import Navbar from './UI/Navbar/Navbar';
 
-import React from "react";
+
 
 function App() {
-  const [data, setData] = React.useState(null);
-
-  React.useEffect(() => {
-    fetch("/api")
-      .then((res) => res.json())
-      .then((data) => setData(data.toString));
-  }, []);
-
 
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          {!data ? "Loading..." : data}
-        </p>
-        
-      </header>
+      <Navbar />
+      <Routes>
+        <Route path='/' element={<HomePage />} />
+        <Route path='/search' element={<SearchPage />} />
+      </Routes>
     </div>
   );
+
 }
+
+  
 
 export default App;
