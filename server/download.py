@@ -3,9 +3,6 @@ import wikipedia as wp
 from pymongo import MongoClient
 
 # # Set up the MongoDB client and database INSERT PERSONAL UNAME AND PWORD
-client = MongoClient("mongodb+srv://<USERNAME>:<PASSWORD>@cluster0.0xcpymn.mongodb.net/?retryWrites=true&w=majority")
-
-db = client["DaViToMo"]
 
 
 
