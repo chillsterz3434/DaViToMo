@@ -1,11 +1,12 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import React from "react";
 import "./ArticleSearch.css";
 // import TopicCard from "../Cards/TopicCard";
 import Cards from "../Cards/Card";
+import TopicCard from "../Cards/TopicCard";
 
-//TODO: Still need to figure out how to get article into the GET request
-//have the server be able to get a .js script and then run it and pipe it to the client
+//TODO: get topics from server
+
 
 function ArticleSearch() {
 
@@ -13,6 +14,8 @@ function ArticleSearch() {
   const [article, setArticle] = useState("");
   const [data, setData] = useState("");
   const [buttonContent, setButtonContent] = useState("")
+  const [topics, setTopics] = useState("")
+
 
 
 function filterData(event){
@@ -48,14 +51,12 @@ function filterData(event){
         headers: {
           "Content-type": "application/json()",
         },
-        // body: JSON.stringify(a)
       })
       .then((res) => res.json())
       .then((data) => setData(data.script.dataToSend))
       if (!response.ok) {
         throw new Error('Request failed with status '+response.status)
       }
-      // const data = await response.json()
       console.log('Article submitted: '+data)
       console.log(response.body)
       
@@ -63,6 +64,7 @@ function filterData(event){
       console.log(error)
     }
   }
+
 
     return (
         
@@ -75,7 +77,15 @@ function filterData(event){
         </form>
 
       <div>
-      <Cards />
+      {topics && (topics.length > 0 ? topics.map(topic => (
+        <TopicCard
+          topic={topic}
+          key={topic.title}
+          />
+      )) : <p className="msg">
+        No topics found
+      </p>
+      )}
         <header>
           <p>{article && !data ? "Loading..." : data}</p>
           <p>{searchInput}</p>
