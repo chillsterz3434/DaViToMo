@@ -11,17 +11,17 @@ function Cards() {
     {
         "id": 1,
         "title": "Topic 0",
-        "words": ["games", "shooter", "first"]
+        "words": ["games", "shooter", "first", "dummy"]
     },
     {
         "id": 2,
         "title": "Topic 1",
-        "words": ["wars", "space", "saber"]
+        "words": ["wars", "space", "saber", "dummy"]
     },
     {
         "id": 3,
         "title": "Topic 2",
-        "words": ["palpatine", "sith", "vader"]
+        "words": ["palpatine", "sith", "vader", "dummy"]
     }
   ]
   return (

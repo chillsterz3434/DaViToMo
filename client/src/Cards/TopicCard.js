@@ -42,7 +42,7 @@ return(
                 </div>
                 <div className='card-firstthree'>
                     
-                {props.words?.map(word => (
+                {props.words.slice(0,3)?.map(word => (
                     <div className='word' key={word}>
                         {word}
                         </div>
