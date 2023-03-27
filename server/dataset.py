@@ -1,7 +1,7 @@
 import numpy as np
+import os
 from collections import defaultdict
-from download import main_page
-from download import client, db
+from download import main_page, db
 
 
 collection = db[main_page]

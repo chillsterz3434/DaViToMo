@@ -15,7 +15,7 @@ app.use(bodyParser.json());
 app.use(cors())
 
 
-app.get('/api', (req, res) => {
+app.get('/api/articles', (req, res) => {
     res.json({message: "Hello from server"})
 })
 
