@@ -75,8 +75,8 @@ function filterData(event){
         </form>
 
       <div>
+      <Cards />
         <header>
-          <Cards />
           <p>{article && !data ? "Loading..." : data}</p>
           <p>{searchInput}</p>
           <p>{article}</p>
