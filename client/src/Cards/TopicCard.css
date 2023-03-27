@@ -1,0 +1,45 @@
+.card {
+    display: flex;
+    flex-direction: row;
+    justify-items: flex-start;
+    align-items: center;
+    gap: 16px;
+    border-radius: 2px;
+    background-color: #ffffff;
+    width: 75%;
+    margin: 24px auto;
+    padding: 20px;
+    border-radius: 24px;
+    height: 100px;
+    cursor: pointer;
+}
+.card * {
+    font-size: 14pt;
+    line-height: 14px;
+    color: rgba(0,0,0,0.6);
+}
+
+.card-content{
+    width: 50%;
+    margin-left: 25%;
+    align-items: center;
+}
+
+.card-header {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+}
+
+.card-firstthree {
+    display: flex;
+    justify-content: center;
+}
+
+.word {
+    color: rgba(0,0,0,0.87);
+    font-size: 20px;
+    margin: 1px;
+    padding: 4px 16px;
+    justify-content: center;
+}

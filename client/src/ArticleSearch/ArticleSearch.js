@@ -1,7 +1,8 @@
-import { useEffect, useState } from "react";
-import { format } from 'react-string-format'
+import { useState } from "react";
 import React from "react";
 import "./ArticleSearch.css";
+// import TopicCard from "../Cards/TopicCard";
+import Cards from "../Cards/Card";
 
 //TODO: Still need to figure out how to get article into the GET request
 //have the server be able to get a .js script and then run it and pipe it to the client
@@ -11,7 +12,6 @@ function ArticleSearch() {
   const [searchInput, setSearchInput] = useState("");
   const [article, setArticle] = useState("");
   const [data, setData] = useState("");
-  // const [url, setUrl] = useState("");
   const [buttonContent, setButtonContent] = useState("")
 
 
@@ -31,7 +31,7 @@ function filterData(event){
 
   }
   const form = document.querySelector('form')
-      if(form && article!=searchInput && article!=""){
+      if(form && article!==searchInput && article!==""){
         form.addEventListener('submit', (e) => {
           e.preventDefault();
           submitArticle(article)
@@ -76,7 +76,8 @@ function filterData(event){
 
       <div>
         <header>
-          <p>{!data ? "Loading..." : data}</p>
+          <Cards />
+          <p>{article && !data ? "Loading..." : data}</p>
           <p>{searchInput}</p>
           <p>{article}</p>
         </header>
