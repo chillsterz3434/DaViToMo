@@ -1,18 +1,36 @@
-import { useEffect, useState } from "react";
-import { format } from 'react-string-format'
+import { useState, useEffect } from "react";
 import React from "react";
 import "./ArticleSearch.css";
+// import TopicCard from "../Cards/TopicCard";
+import Cards from "../Cards/Card";
+import TopicCard from "../Cards/TopicCard";
 
-//TODO: Still need to figure out how to get article into the GET request
-//have the server be able to get a .js script and then run it and pipe it to the client
+//TODO: get topics from server
+
 
 function ArticleSearch() {
 
   const [searchInput, setSearchInput] = useState("");
   const [article, setArticle] = useState("");
   const [data, setData] = useState("");
-  // const [url, setUrl] = useState("");
   const [buttonContent, setButtonContent] = useState("")
+  // const [topics, setTopics] = useState("")
+
+  const topics = [
+    {
+        "title": "Topic 0",
+        "words": ["games", "shooter", "first", "dummy"]
+    },
+    {
+        "title": "Topic 1",
+        "words": ["wars", "space", "saber", "dummy"]
+    },
+    {
+        "title": "Topic 2",
+        "words": ["palpatine", "sith", "vader", "dummy"]
+    }
+]
+
 
 
 function filterData(event){
@@ -31,7 +49,7 @@ function filterData(event){
 
   }
   const form = document.querySelector('form')
-      if(form && article!=searchInput && article!=""){
+      if(form && article!==searchInput && article!==""){
         form.addEventListener('submit', (e) => {
           e.preventDefault();
           submitArticle(article)
@@ -48,14 +66,12 @@ function filterData(event){
         headers: {
           "Content-type": "application/json()",
         },
-        // body: JSON.stringify(a)
       })
       .then((res) => res.json())
       .then((data) => setData(data.script.dataToSend))
       if (!response.ok) {
         throw new Error('Request failed with status '+response.status)
       }
-      // const data = await response.json()
       console.log('Article submitted: '+data)
       console.log(response.body)
       
@@ -63,6 +79,7 @@ function filterData(event){
       console.log(error)
     }
   }
+
 
     return (
         
@@ -75,8 +92,19 @@ function filterData(event){
         </form>
 
       <div>
+       
         <header>
-          <p>{!data ? "Loading..." : data}</p>
+        {/* <Cards /> */}
+        {topics && (topics.length > 0 ? topics.map(topic => (
+        <TopicCard
+          topic={topic}
+          key={topic.title}
+          />
+      )) : <p>
+        No topics found
+      </p>
+      )}
+          <p>{article && !data ? "Loading..." : data}</p>
           <p>{searchInput}</p>
           <p>{article}</p>
         </header>

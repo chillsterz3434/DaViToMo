@@ -1,6 +1,7 @@
 
 import numpy as np
 from dataset import DataSet
+import json
 
 count_limit = 20     # minimum times a word has to appear in the corpus
 topic_count = 10     # number of topics
@@ -66,6 +67,7 @@ class TopicModel:
     def print_topics(self):
         for t,pr_w in enumerate(self.pr_wt):
             header = "topic %d" % t
+            
             data.print_word_probability_table(pr_w,header)
 
     def em(self):
@@ -88,10 +90,13 @@ print("====================")
 print("page count: %d" % data.page_count)
 print("word count: %d" % data.word_count)
 print("====================")
-data.print_common_words()
+#data.print_common_words()
 
 # topic model, run EM and print the learned topics
 tm = TopicModel(data,topic_count=topic_count)
 ll = tm.em()
 tm.print_topics()
 print("final log likelihood = %.8f" % ll)
+print(DataSet.y_words)
+
+

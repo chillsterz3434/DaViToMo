@@ -9,6 +9,7 @@ const controller = new AbortController();
 const signal = controller.signal;
 
 
+
 // Tell express to use the body-parser middleware and to not parse extended bodies
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -36,8 +37,17 @@ app.get('/api/articles', (req, res) => {
         res.send({script: {dataToSend}})
         
     });
-    controller.abort();
 });
+
+app.post("/api/topics", (req, res) => {
+
+    // Retrieve json data from post body
+    var topics = req.body;
+    console.log(topics);
+    res.json({result: "True"})
+});
+
+
 
 
 app.listen(PORT, () => {
