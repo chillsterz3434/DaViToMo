@@ -1,19 +1,19 @@
-.topic-card {
+.document-card {
     display: flex;
     flex-direction: row;
     justify-items: flex-start;
     align-items: center;
     gap: 16px;
     background-color: #cacaca;
-    width: 75%;
-    margin: 24px auto;
-    padding: 20px;
+    width: 100%;
+    margin: 6px auto;
+    padding: 10px;
     border-radius: 24px;
-    height: 60px;
+    height: 15px;
     cursor: pointer;
     border: none;
 }
-.topic-card * {
+.document-card * {
     font-size: 14pt;
     line-height: 14px;
     color: rgba(0,0,0,0.6);
@@ -27,19 +27,6 @@
 .card-header {
     display: flex;
     flex-direction: column;
-    margin-bottom: 10px;
+    margin-top: 10px;
     width: 100%;
-}
-
-.card-firstthree {
-    display: flex;
-    justify-content: center;
-}
-
-.word {
-    color: rgba(0,0,0,0.87);
-    font-size: 20px;
-    margin: 1px;
-    padding: 4px;
-    justify-content: center;
 }

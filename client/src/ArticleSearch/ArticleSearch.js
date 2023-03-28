@@ -86,15 +86,14 @@ function filterData(event){
   <div>
 
     <main>
+      <section className="banner">
+        <h2>Topic Model</h2>
+      </section>
       <form>
         <input type="text" placeholder="Enter article..."  onChange={filterData} value={searchInput}/>
         <button type="submit" id="search-btn" className="btn" onClick={handleClick}>{!buttonContent ? "Run Script" : buttonContent}</button>
         </form>
 
-      <div>
-       
-        <header>
-        {/* <Cards /> */}
         {topics && (topics.length > 0 ? topics.map(topic => (
         <TopicCard
           topic={topic}
@@ -104,13 +103,13 @@ function filterData(event){
         No topics found
       </p>
       )}
-          <p>{article && !data ? "Loading..." : data}</p>
+      {/* <Cards /> */}
+        
+      <p>{article && !data ? "Loading..." : data}</p>
           <p>{searchInput}</p>
           <p>{article}</p>
-        </header>
-        <form>
 
-        </form>
+      <div>
       </div>
       
     </main>

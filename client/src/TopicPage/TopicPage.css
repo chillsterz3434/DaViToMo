@@ -17,27 +17,30 @@ main {
 
 .top-topics {
   /* Styles for top 3 topics section */
+  justify-content: center;
+  text-align: center;
 }
 
 .related-info {
   /* Styles for related info section */
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
 }
 
 .word-info {
   /* Styles for words column */
-  width: 26%;
+  width: 18%;
 }
 
 .doc-info {
   /* Styles for documents column */
-  width: 33%;
+  width: 27%;
 }
 
 .topic-info {
   /* Styles for related topics column */
-  width: 33%;
+  width: 40%;
 }
 
 ul {

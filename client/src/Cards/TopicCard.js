@@ -10,7 +10,7 @@ const TopicCard = (props) => {
 
     let navigate = useNavigate();
     const handleClick = () =>{
-        let path = `/`
+        let path = `/topics`
         navigate(path)
     }
 

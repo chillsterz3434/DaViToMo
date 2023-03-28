@@ -1,93 +1,136 @@
 import React from "react";
+import { useState } from "react";
 import "./TopicPage.css"
+import TopicCard from "../Cards/TopicCard";
+import DocumentCard from "../Cards/DocumentCard";
 
 function TopicPage() {
-  const apiUrl = "https://api.example.com/topics";
-const topTopics = document.querySelector(".top-topics ul");
+  const apiUrl = "/api/topics";
+const topWords = document.querySelector(".top-topics ul");
 const wordList = document.querySelector(".word-info ul");
-const docList = document.querySelector(".doc-info ul");
 const topicList = document.querySelector(".topic-info ul");
 
-// Function to fetch data from API
-async function fetchData(url) {
-  try {
-    const response = await fetch(url);
-    const data = await response.json();
-    return data;
-  } catch (error) {
-    console.error(error);
+const documents = [
+  {
+    "id": 1,
+    "title": "Morty Smith",
+    "text": "This is an article about Morty Smith"
+  },
+  {
+    "id": 2,
+    "title": "Destiny 2",
+    "text": "This is an article about Destiny 2"
   }
-}
+]
+const topics = [
+  {
+      "title": "Topic 0",
+      "words": ["games", "shooter", "first", "dummy"]
+  },
+  {
+      "title": "Topic 1",
+      "words": ["wars", "space", "saber", "dummy"]
+  },
+  {
+      "title": "Topic 2",
+      "words": ["palpatine", "sith", "vader", "dummy"]
+  }
+]
+const titleTopic = [
+  {
+    "title": "Topic 0",
+    "words": ["games", "shooter", "first", "dummy","wars", "space", "saber","palpatine", "sith", "vader"]
+  }
+]
 
-// Function to display top topics on the page
-function displayTopTopics(topics) {
-  topics.slice(0, 3).forEach(topic => {
-    const li = document.createElement("li");
-    li.textContent = topic.name;
-    topTopics.appendChild(li);
-  });
-}
 
-// Function to display words, related documents, and related topics on the page
-function displayRelatedInfo(info) {
-  info.words.forEach(word => {
-    const li = document.createElement("li");
-    li.textContent = word;
-    wordList.appendChild(li);
-  });
-  info.documents.forEach(doc => {
-    const li = document.createElement("li");
-    li.textContent = doc.title;
-    docList.appendChild(li);
-  });
-  info.topics.forEach(topic => {
-    const li = document.createElement("li");
-    li.textContent = topic.name;
-    topicList.appendChild(li);
-  });
-}
+// // Function to fetch data from API
+// async function fetchData(url) {
+//   try {
+//     const response = await fetch(url);
+//     const data = await response.json();
+//     return data;
+//   } catch (error) {
+//     console.error(error);
+//   }
+// }
 
-// Call fetchData function to get data from API
-fetchData(apiUrl)
-  .then(data => {
-    // Display top 3 topics on the page
-    displayTopTopics(data.topics);
+// // Function to display top words on the page
+// function displayTopTopics(topic) {
+//   topic.words.slice(0, 3).forEach(word => {
+//     const li = document.createElement("li");
+//     li.textContent = word;
+//     topWords.appendChild(li);
+//   });
+// }
 
-    // Display words, related documents, and related topics on the page
-    displayRelatedInfo(data.relatedInfo);
-  })
-  .catch(error => console.error(error));
+// // Function to display words, related documents, and related topics on the page
+// function displayRelatedInfo(info) {
+// //   info.words.forEach(word => {
+// //     const li = document.createElement("li");
+// //     li.textContent = word;
+// //     wordList.appendChild(li);
+// //   });
+// //   info.map(doc => {
+// //     <li>{doc.title}</li>
+// //   });
+// //   info.topics.forEach(topic => {
+// //     const li = document.createElement("li");
+// //     li.textContent = topic.name;
+// //     topicList.appendChild(li);
+// //   });
+// }
+
+// // Call fetchData function to get data from API
+// fetchData(apiUrl)
+//   .then(data => {
+//     // Display top 3 topics on the page
+//     displayTopTopics(data.topics);
+
+//     // Display words, related documents, and related topics on the page
+//     displayRelatedInfo(data.relatedInfo);
+//   })
+//   .catch(error => console.error(error));
 
   return (
-<body>
+    <div>
   <main>
-    <section class="top-topics">
-      {/* <h1>Top 3 Topics {topic 1, topic 2, topic 3} </h1> */}
+    <section className="banner">
+      <h2>Topic Selection</h2>
     </section>
-    <section class="related-info">
-      <div class="word-info">
-        <h2>Words</h2>
-        <ul>
-          <li>Word 1</li>
-          <li>Word 2</li>
-          <li>Word 3</li>
-        </ul>
+    <section className="top-topics">
+      <h2>{titleTopic.map(topic => (
+          topic.words.slice(0,3).map(word => (
+            <>"{word}" </>
+          ))
+        ))} </h2>
+    </section>
+    <section className="related-info">
+      <div className="word-info">
+        <h3>Words</h3>
+        {titleTopic.map(topic => (
+          topic.words.map(word => (
+            <ul>{word}</ul>
+          ))
+        ))}
       </div>
-      <div class="doc-info">
-        <h2>Related Documents</h2>
-        <ul>
-          <li>Document 1</li>
-          <li>Document 2</li>
-          <li>Document 3</li>
-        </ul>
+      <div className="doc-info">
+        <h3>Related Documents</h3>
+        {documents.map(doc => (
+          <DocumentCard
+          doc={doc}
+          key={doc.id}
+          />
+        ))}
       </div>
-      <div class="topic-info">
-        <h2>Related Topics</h2>
-        <ul>
-          <li>Topic 1</li>
-          <li>Topic 2</li>
-          <li>Topic 3</li>
-        </ul>
+      <div className="topic-info">
+        <h3>Related Topics</h3>
+        {topics.map(topic => (
+          <TopicCard
+          topic={topic}
+          key={topic.title}
+          />
+        ))}
       </div>
     </section>
   </main>
@@ -95,7 +138,7 @@ fetchData(apiUrl)
     {/* <!-- Footer content --> */}
   </footer>
   <script src="script.js"></script>
-</body>
+  </div>
   )
 
 }
