@@ -1,10 +1,9 @@
-.card {
+.topic-card {
     display: flex;
     flex-direction: row;
     justify-items: flex-start;
     align-items: center;
     gap: 16px;
-    border-radius: 2px;
     background-color: #cacaca;
     width: 50%;
     margin: 24px auto;
@@ -12,8 +11,9 @@
     border-radius: 24px;
     height: 100px;
     cursor: pointer;
+    border: none;
 }
-.card * {
+.topic-card * {
     font-size: 14pt;
     line-height: 14px;
     color: rgba(0,0,0,0.6);

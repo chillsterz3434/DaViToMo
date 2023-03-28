@@ -6,7 +6,7 @@ const Card = (props) => (
     {props.children}
   </div>
 );
-// function Cards() {
+// function Card() {
 //   const topics = [
 //     {
 //         "id": 1,

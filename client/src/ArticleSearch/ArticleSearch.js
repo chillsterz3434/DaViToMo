@@ -14,7 +14,22 @@ function ArticleSearch() {
   const [article, setArticle] = useState("");
   const [data, setData] = useState("");
   const [buttonContent, setButtonContent] = useState("")
-  const [topics, setTopics] = useState("")
+  // const [topics, setTopics] = useState("")
+
+  const topics = [
+    {
+        "title": "Topic 0",
+        "words": ["games", "shooter", "first", "dummy"]
+    },
+    {
+        "title": "Topic 1",
+        "words": ["wars", "space", "saber", "dummy"]
+    },
+    {
+        "title": "Topic 2",
+        "words": ["palpatine", "sith", "vader", "dummy"]
+    }
+]
 
 
 
@@ -77,16 +92,18 @@ function filterData(event){
         </form>
 
       <div>
-      {topics && (topics.length > 0 ? topics.map(topic => (
+       
+        <header>
+        {/* <Cards /> */}
+        {topics && (topics.length > 0 ? topics.map(topic => (
         <TopicCard
           topic={topic}
           key={topic.title}
           />
-      )) : <p className="msg">
+      )) : <p>
         No topics found
       </p>
       )}
-        <header>
           <p>{article && !data ? "Loading..." : data}</p>
           <p>{searchInput}</p>
           <p>{article}</p>
