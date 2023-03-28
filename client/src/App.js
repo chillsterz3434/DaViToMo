@@ -3,6 +3,7 @@ import HomePage from './HomePage/HomePage';
 import SearchPage from './ArticleSearch/ArticleSearch';
 import "./App.css";
 import Navbar from './UI/Navbar/Navbar';
+import TopicPage from './TopicPage/TopicPage';
 
 
 
@@ -14,6 +15,7 @@ function App() {
       <Routes>
         <Route path='/' element={<HomePage />} />
         <Route path='/search' element={<SearchPage />} />
+        <Route path='/topics' element={<TopicPage />} />
       </Routes>
     </div>
   );

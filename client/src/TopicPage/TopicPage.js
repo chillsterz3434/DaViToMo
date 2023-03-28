@@ -1,4 +1,8 @@
-const apiUrl = "https://api.example.com/topics";
+import React from "react";
+import "./TopicPage.css"
+
+function TopicPage() {
+  const apiUrl = "https://api.example.com/topics";
 const topTopics = document.querySelector(".top-topics ul");
 const wordList = document.querySelector(".word-info ul");
 const docList = document.querySelector(".doc-info ul");
@@ -53,3 +57,49 @@ fetchData(apiUrl)
     displayRelatedInfo(data.relatedInfo);
   })
   .catch(error => console.error(error));
+
+  return (
+<body>
+  <main>
+    <section class="top-topics">
+      {/* <h1>Top 3 Topics {topic 1, topic 2, topic 3} </h1> */}
+    </section>
+    <section class="related-info">
+      <div class="word-info">
+        <h2>Words</h2>
+        <ul>
+          <li>Word 1</li>
+          <li>Word 2</li>
+          <li>Word 3</li>
+        </ul>
+      </div>
+      <div class="doc-info">
+        <h2>Related Documents</h2>
+        <ul>
+          <li>Document 1</li>
+          <li>Document 2</li>
+          <li>Document 3</li>
+        </ul>
+      </div>
+      <div class="topic-info">
+        <h2>Related Topics</h2>
+        <ul>
+          <li>Topic 1</li>
+          <li>Topic 2</li>
+          <li>Topic 3</li>
+        </ul>
+      </div>
+    </section>
+  </main>
+  <footer>
+    {/* <!-- Footer content --> */}
+  </footer>
+  <script src="script.js"></script>
+</body>
+  )
+
+}
+
+export default TopicPage;
+
+
