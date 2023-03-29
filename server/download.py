@@ -3,7 +3,7 @@ import wikipedia as wp
 from pymongo import MongoClient
 
 # # Set up the MongoDB client and database INSERT PERSONAL UNAME AND PWORD
-client = MongoClient("mongodb+srv://<USERNAME>:<PASSWORD>@cluster0.0xcpymn.mongodb.net/?retryWrites=true&w=majority")
+client = MongoClient("mongodb+srv://jamesroll:jd7TWKaloTQeSniA@cluster0.7qyfup6.mongodb.net/?retryWrites=true&w=majority")
 
 db = client["DaViToMo"]
 
@@ -20,7 +20,7 @@ main_page = input("Enter an article with a _ between each word: ")
 collection = db[main_page]
 
 col = collection.find()
-if col == 0:
+if col == None:
     # Fetch the webpage
     main = wp.page(main_page, auto_suggest=False)
     print("== Downloading %s: %d links" % (main_page, len(main.links)))

@@ -103,3 +103,7 @@ class DataSet:
 
         header = "common words (out of %d total)" % total
         self.print_word_probability_table(pr,header)
+
+    def index_to_word(self, index):
+        """Return the word corresponding to the given index."""
+        return self.words[index]
