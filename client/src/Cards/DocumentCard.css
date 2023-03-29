@@ -7,7 +7,7 @@
     background-color: #cacaca;
     width: 100%;
     margin: 6px auto;
-    padding: 10px;
+    padding: 12px;
     border-radius: 24px;
     height: 15px;
     cursor: pointer;
@@ -17,6 +17,10 @@
     font-size: 14pt;
     line-height: 14px;
     color: rgba(0,0,0,0.6);
+}
+
+.document-card:hover{
+    background-color: #b0b0b0;
 }
 
 .card-content{
