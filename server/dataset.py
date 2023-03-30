@@ -111,7 +111,7 @@ class DataSet:
         # Data that we will send in a post request.
         data={'title': header, 'words': x}
         # The post request to node server
-        res = requests.post('http://localhost:5000/api/topics', json=data)
+        res = requests.post('http://localhost:5000/api/pytopics', json=data)
         # Convert response data to json
         returned_data = res.json()
 

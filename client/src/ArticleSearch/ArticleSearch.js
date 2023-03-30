@@ -14,22 +14,22 @@ function ArticleSearch() {
   const [article, setArticle] = useState("");
   const [data, setData] = useState("");
   const [buttonContent, setButtonContent] = useState("")
-  // const [topics, setTopics] = useState("")
+  const [topics, setTopics] = useState([])
 
-  const topics = [
-    {
-        "title": "Topic 0",
-        "words": ["games", "shooter", "first", "dummy"]
-    },
-    {
-        "title": "Topic 1",
-        "words": ["wars", "space", "saber", "dummy"]
-    },
-    {
-        "title": "Topic 2",
-        "words": ["palpatine", "sith", "vader", "dummy"]
-    }
-]
+//   const topics = [
+//     {
+//         "title": "Topic 0",
+//         "words": ["games", "shooter", "first", "dummy"]
+//     },
+//     {
+//         "title": "Topic 1",
+//         "words": ["wars", "space", "saber", "dummy"]
+//     },
+//     {
+//         "title": "Topic 2",
+//         "words": ["palpatine", "sith", "vader", "dummy"]
+//     }
+// ]
 
 
 
@@ -39,21 +39,23 @@ function filterData(event){
 
   const handleClick = () => {
     if(article!==""){
+      setArticle("")
       window.location.reload(true)
     } else{
       var key=searchInput.split(' ').join('_')
       setArticle(key);
       setButtonContent("Refresh Page")
+      // fetchTopics()
     }
     
 
   }
   const form = document.querySelector('form')
-      if(form && article!==searchInput && article!==""){
+      if(form && searchInput!==""){
         form.addEventListener('submit', (e) => {
           e.preventDefault();
           submitArticle(article)
-          
+          setSearchInput("")
         }, []);
       }
   
@@ -80,6 +82,26 @@ function filterData(event){
     }
   }
 
+  async function fetchTopics() {
+    const response = await fetch('api/topics')
+    if (!response.ok) {
+      throw new Error('Request failed with status '+response.status)
+    }
+    const data = await response.json()
+    setTopics(data)
+    console.log(data)
+    
+  }
+
+  useEffect(() => {
+    fetchTopics()
+  }, [])
+
+
+ 
+
+  
+
 
     return (
         
@@ -91,6 +113,7 @@ function filterData(event){
       </section>
       <form>
         <input type="text" placeholder="Enter article..."  onChange={filterData} value={searchInput}/>
+        
         <button type="submit" id="search-btn" className="btn" onClick={handleClick}>{!buttonContent ? "Run Script" : buttonContent}</button>
         </form>
 

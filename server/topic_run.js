@@ -8,6 +8,8 @@ const { PythonShell } = 'python-shell'
 const controller = new AbortController();
 const signal = controller.signal;
 
+const localTopics = []
+
 
 
 // Tell express to use the body-parser middleware and to not parse extended bodies
@@ -35,19 +37,21 @@ app.get('/api/articles', (req, res) => {
         console.log(`child process close all stdio with code ${code}`);
         // send data to browser
         res.send({script: {dataToSend}})
-        
+        python.kill()
     });
 });
 
-app.post("/api/topics", (req, res) => {
-
+app.post("/api/pytopics", (req, res) => {
     // Retrieve json data from post body
     var topics = req.body;
     console.log(topics);
+    localTopics.push(topics);
     res.json({result: "True"})
 });
 
-
+app.get("/api/topics", (req, res) => {
+    res.send(localTopics);
+})
 
 
 app.listen(PORT, () => {
