@@ -1,0 +1,55 @@
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1em;
+  background-color: #f2f2f2;
+}
+
+.logo img {
+  height: 3em;
+}
+
+.heatmap {
+  width: 33%;
+  display: inline-block;
+  vertical-align: top;
+  padding: 1em;
+}
+
+
+.related-topics ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.related-documents ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.related-topics {
+  width: 26%;
+  display: inline-block;
+  vertical-align: top;
+  padding: 1em;
+}
+
+.related-topics li{
+  margin: 0.5em 0;
+}
+.related-documents li {
+  margin: 0.5em 0;
+}
+
+.document-text {
+  width: 25%;
+  display: inline-block;
+  vertical-align: top;
+  padding: 1em;
+}
+
+.related-documents {
+  margin-top: 1em;
+}

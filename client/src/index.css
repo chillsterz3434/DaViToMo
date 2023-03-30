@@ -1,4 +1,4 @@
-body {
+/* body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
@@ -10,4 +10,88 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+} */
+* 
+* {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
 }
+
+body {
+	font-family: Arial, sans-serif;
+	line-height: 1.5;
+}
+
+header {
+	background-color: #333;
+	color: #fff;
+	padding: 1rem;
+}
+
+
+
+main {
+	max-width: 1200px;
+	margin: 0 auto;
+	padding: 2rem;
+}
+
+.btn {
+	display: inline-block;
+	padding: 0.5rem 1rem;
+	background-color: #333;
+	color: #fff;
+	text-decoration: none;
+	border-radius: 5px;
+	margin-top: 1rem;
+  margin-bottom: 1rem;
+  
+}
+
+.btn:hover {
+	background-color: #666;
+  cursor: pointer;
+}
+
+/* Homepage Styles */
+
+.banner {
+	background-color: #eee;
+	padding: 2rem;
+	text-align: center;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  line-height: 1.5;
+}
+
+
+
+main {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.form {
+  display: flex;
+  justify-content: center;
+}
+
+input[type="text"] {
+  padding: 0.5rem;
+  font-size: 1.2rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-right: 0.5rem;
+}
+
+/* button[type="submit"] {
+  padding: 0.5rem 1rem;
+  background-color: #333;
+  color: #fff;
+  text-decoration: none;
+  border-radius:
+} */

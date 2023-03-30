@@ -1,12 +1,22 @@
 import numpy as np
+import os
 from collections import defaultdict
-from download import main_page
-from download import client, db
+from download import main_page, db
+import json
+import requests
 
 
 collection = db[main_page]
 
+# # Setup flask server
+# app = Flask(__name__)
+
+# # Setup url route which will send the json data
+# @app.route('/api/topics', methods)
+
 class DataSet:
+    
+    y_words=[]
     def __init__(self,dirname=collection,
                  length_limit=3,
                  count_limit=20):
@@ -89,11 +99,26 @@ class DataSet:
         print("========================================")
         print("==", header)
         print("========================================")
+        x=[]
         word_pr = [ (w,p) for w,p in enumerate(pr) ]
         word_pr.sort(key=lambda x: x[1],reverse=True)
         for w,pr in word_pr[:length]:
             word = self.words[w]
+            y=json.dumps([{"word":word,"pr":(100*pr)}])
+            x.append(word)
             print("%20s | %.4f%%" % (word,100*pr))
+        
+        # Data that we will send in a post request.
+        data={'title': header, 'words': x}
+        # The post request to node server
+        res = requests.post('http://localhost:5000/api/topics', json=data)
+        # Convert response data to json
+        returned_data = res.json()
+
+        print(returned_data)
+        result = returned_data['result'] 
+        print(result)
+        # print(y_words)
 
     def print_common_words(self):
         """print list of most frequently appearing words"""

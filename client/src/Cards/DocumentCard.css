@@ -1,0 +1,32 @@
+.document-card {
+    display: flex;
+    flex-direction: row;
+    justify-items: flex-start;
+    align-items: center;
+    gap: 16px;
+    background-color: #cacaca;
+    width: 100%;
+    margin: 6px auto;
+    padding: 10px;
+    border-radius: 24px;
+    height: 15px;
+    cursor: pointer;
+    border: none;
+}
+.document-card * {
+    font-size: 14pt;
+    line-height: 14px;
+    color: rgba(0,0,0,0.6);
+}
+
+.card-content{
+    width: 100%;
+    align-items: center;
+}
+
+.card-header {
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+    width: 100%;
+}

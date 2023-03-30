@@ -1,0 +1,88 @@
+/* Layout styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+header {
+  background-color: #333;
+  color: #fff;
+  padding: 1rem;
+}
+
+main {
+  /* Main content styles */
+}
+
+.top-topics {
+  /* Styles for top 3 topics section */
+  justify-content: center;
+  text-align: center;
+}
+
+.related-info {
+  /* Styles for related info section */
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.word-info {
+  /* Styles for words column */
+  width: 18%;
+}
+
+.doc-info {
+  /* Styles for documents column */
+  width: 27%;
+}
+
+.topic-info {
+  /* Styles for related topics column */
+  width: 40%;
+}
+
+ul {
+  /* Styles for unordered lists */
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* Typography styles */
+h1, h2 {
+  font-family: Arial, sans-serif;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+li {
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+/* Colors and backgrounds */
+body {
+  background-color: #f2f2f2;
+  color: #333;
+}
+
+.top-topics {
+  background-color: #fff;
+  padding: 20px;
+}
+
+.related-info {
+  background-color: #fff;
+  padding: 20px;
+  margin-top: 20px;
+}
+
+.word-info, .doc-info, .topic-info {
+  background-color: #f2f2f2;
+  padding: 20px;
+  margin: 10px;
+}

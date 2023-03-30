@@ -1,0 +1,19 @@
+[
+
+    {
+        "id": 1,
+        "title": "Topic 0",
+        "words": ["games", "shooter", "first"]
+    },
+    {
+        "id": 2,
+        "title": "Topic 1",
+        "words": ["wars", "space", "saber"]
+    },
+    {
+        "id": 3,
+        "title": "Topic 2",
+        "words": ["palpatine", "sith", "vader"]
+    }
+
+]
