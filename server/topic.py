@@ -1,10 +1,14 @@
 
 import numpy as np
+import seaborn as sns
+import matplotlib.pyplot as plt
 from dataset import DataSet
+from wordcloud import WordCloud
 import json
 
-count_limit = 20     # minimum times a word has to appear in the corpus
-topic_count = 10     # number of topics
+
+count_limit = 25     # minimum times a word has to appear in the corpus
+topic_count = 7     # number of topics
 max_iterations = 100 # maximum number of EM iterations
 
 
@@ -79,6 +83,47 @@ class TopicModel:
             print("iteration %d/%d: ll = %.4f" % (it+1,max_iterations,ll))
         return ll
 
+    def Prtd_heatmap(self):
+        plt.figure(figsize=(10,8))
+        sns.heatmap(self.pr_td, cmap="coolwarm")
+        plt.title("Topic Distribution for Each Article")
+        plt.show()
+
+    def Prwt_heatmap(self, n_words=70):
+        # Get the top n_words most frequent words
+        word_counts = self.data.vectors.sum(axis=0)
+        top_word_indices = np.argsort(word_counts)[::-1][:n_words]
+        top_words = [self.data.index_to_word(i) for i in top_word_indices]
+
+        # Get the topic probabilities for the top words
+        topic_probabilities = self.pr_wt[:, top_word_indices].T
+
+        # Plot the heatmap
+        plt.figure(figsize=(10, 8))
+        ax = sns.heatmap(topic_probabilities, cmap="coolwarm", xticklabels=range(self.topic_count),
+                         yticklabels=top_words, vmin=0.001, vmax=0.005)
+        ax.set_xlabel("Topic")
+        ax.set_ylabel("Word")
+        ax.set_title("Topic Distribution for Top %d Words" % n_words)
+        plt.show()
+
+    def generate_wordcloud(self, n_words=100):
+        # Get the probabilities of each word across all topics
+        pr_w = self.pr_wt.sum(axis=0)
+        sorted_indices = np.argsort(pr_w)[::-1][:n_words]
+        word_freq = {self.data.index_to_word(i): pr_w[i] for i in sorted_indices}
+
+        # Generate the word cloud
+        wc = WordCloud(width=800, height=400, background_color='white', max_words=n_words)
+        wc.generate_from_frequencies(word_freq)
+
+        # Plot and save the word cloud
+        plt.figure(figsize=(12, 6))
+        plt.imshow(wc, interpolation='bilinear')
+        plt.axis("off")
+        plt.tight_layout(pad=0)
+        plt.show()
+
 # load dataset
 data = DataSet(count_limit=count_limit)
 
@@ -97,6 +142,9 @@ tm = TopicModel(data,topic_count=topic_count)
 ll = tm.em()
 tm.print_topics()
 print("final log likelihood = %.8f" % ll)
-print(DataSet.y_words)
+
+tm.Prtd_heatmap()
+tm.Prwt_heatmap()
+tm.generate_wordcloud()
 
 
