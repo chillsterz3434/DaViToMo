@@ -7,7 +7,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-# # Set up the MongoDB client and database INSERT PERSONAL UNAME AND PWORD
+# # Set up the MongoDB client and database
 client = MongoClient(os.getenv('DB_URI'))
 
 db = client["DaViToMo"]
@@ -23,6 +23,7 @@ main_page = sys.argv[1]
 
 # # Create a new collection to store the articles with the name of the main page
 collection = db[main_page]
+
 
 col = collection.find_one()
 if col == None:
