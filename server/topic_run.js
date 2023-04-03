@@ -8,7 +8,7 @@ const { PythonShell } = 'python-shell'
 const controller = new AbortController();
 const signal = controller.signal;
 
-const localTopics = []
+var localTopics = []
 
 
 
@@ -44,8 +44,8 @@ app.get('/api/articles', (req, res) => {
 app.post("/api/pytopics", (req, res) => {
     // Retrieve json data from post body
     var topics = req.body;
+    localTopics.push(topics)
     console.log(topics);
-    localTopics.push(topics);
     res.json({result: "True"})
 });
 

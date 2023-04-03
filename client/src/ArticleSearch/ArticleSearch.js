@@ -15,6 +15,7 @@ function ArticleSearch() {
   const [data, setData] = useState("");
   const [buttonContent, setButtonContent] = useState("")
   const [topics, setTopics] = useState([])
+  const [isLoading, setIsLoading] = useState(false)
 
 //   const topics = [
 //     {
@@ -31,6 +32,14 @@ function ArticleSearch() {
 //     }
 // ]
 
+useEffect(() => {
+  if(topics.length<6){
+    fetchTopics()
+  }
+  
+
+})
+
 
 
 function filterData(event){
@@ -38,24 +47,19 @@ function filterData(event){
 }
 
   const handleClick = () => {
-    if(article!==""){
-      setArticle("")
-      window.location.reload(true)
-    } else{
+    if(article==""){
       var key=searchInput.split(' ').join('_')
       setArticle(key);
-      setButtonContent("Refresh Page")
-      // fetchTopics()
+      setButtonContent("")
+      setSearchInput("")
     }
-    
-
   }
+
   const form = document.querySelector('form')
-      if(form && searchInput!==""){
+      if(form){
         form.addEventListener('submit', (e) => {
           e.preventDefault();
           submitArticle(article)
-          setSearchInput("")
         }, []);
       }
   
@@ -63,19 +67,12 @@ function filterData(event){
 
   async function submitArticle(a) {
     try {
-      const response = await fetch(`/api/articles/${a}`, {
+      await fetch(`/api/articles/${a}`, {
         method: "GET",
         headers: {
           "Content-type": "application/json()",
         },
       })
-      .then((res) => res.json())
-      .then((data) => setData(data.script.dataToSend))
-      if (!response.ok) {
-        throw new Error('Request failed with status '+response.status)
-      }
-      console.log('Article submitted: '+data)
-      console.log(response.body)
       
     } catch (error) {
       console.log(error)
@@ -83,19 +80,19 @@ function filterData(event){
   }
 
   async function fetchTopics() {
+    setIsLoading(true)
     const response = await fetch('api/topics')
     if (!response.ok) {
       throw new Error('Request failed with status '+response.status)
     }
     const data = await response.json()
     setTopics(data)
-    console.log(data)
+    setIsLoading(false)
+    // console.log(data)
     
   }
 
-  useEffect(() => {
-    fetchTopics()
-  }, [])
+  
 
 
  
@@ -111,13 +108,14 @@ function filterData(event){
       <section className="banner">
         <h2>Topic Model</h2>
       </section>
+      
       <form>
         <input type="text" placeholder="Enter article..."  onChange={filterData} value={searchInput}/>
-        
-        <button type="submit" id="search-btn" className="btn" onClick={handleClick}>{!buttonContent ? "Run Script" : buttonContent}</button>
+        {!topics && <button type="submit" id="search-btn" className="btn" onClick={handleClick}>{!buttonContent ? "Run Script" : buttonContent}</button>
+        }
         </form>
-
-        {topics && (topics.length > 0 ? topics.map(topic => (
+        {isLoading && article!=="" && <p>Loading Topics...</p>}
+        {!isLoading && topics && (topics.length > 0 ? topics.map(topic => (
         <TopicCard
           topic={topic}
           key={topic.title}
@@ -126,11 +124,6 @@ function filterData(event){
         No topics found
       </p>
       )}
-      {/* <Cards /> */}
-        
-      <p>{article && !data ? "Loading..." : data}</p>
-          <p>{searchInput}</p>
-          <p>{article}</p>
 
       <div>
       </div>
