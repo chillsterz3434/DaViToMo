@@ -13,9 +13,9 @@ function ArticleSearch() {
   const [searchInput, setSearchInput] = useState("");
   const [article, setArticle] = useState("");
   const [data, setData] = useState("");
-  const [buttonContent, setButtonContent] = useState("")
   const [topics, setTopics] = useState([])
   const [isLoading, setIsLoading] = useState(false)
+  const [showButton, setShowButton] = useState(false)
 
 //   const topics = [
 //     {
@@ -47,21 +47,19 @@ function filterData(event){
 }
 
   const handleClick = () => {
-    if(article==""){
       var key=searchInput.split(' ').join('_')
-      setArticle(key);
-      setButtonContent("")
+      submitArticle(key);
       setSearchInput("")
-    }
+      setShowButton(true)
   }
 
-  const form = document.querySelector('form')
-      if(form){
-        form.addEventListener('submit', (e) => {
-          e.preventDefault();
-          submitArticle(article)
-        }, []);
-      }
+  // const form = document.querySelector('form')
+  //     if(form){
+  //       form.addEventListener('submit', (e) => {
+  //         e.preventDefault();
+  //         submitArticle(article)
+  //       }, []);
+  //     }
   
 
 
@@ -88,8 +86,6 @@ function filterData(event){
     const data = await response.json()
     setTopics(data)
     setIsLoading(false)
-    // console.log(data)
-    
   }
 
   
@@ -111,7 +107,7 @@ function filterData(event){
       
       <form>
         <input type="text" placeholder="Enter article..."  onChange={filterData} value={searchInput}/>
-        {!topics && <button type="submit" id="search-btn" className="btn" onClick={handleClick}>{!buttonContent ? "Run Script" : buttonContent}</button>
+        {!showButton && <button type="submit" id="search-btn" className="btn" onClick={handleClick}>Run Script</button>
         }
         </form>
         {isLoading && article!=="" && <p>Loading Topics...</p>}
