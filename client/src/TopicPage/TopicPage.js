@@ -8,19 +8,6 @@ function TopicPage() {
 
   const location = useLocation();
 
-
-
-
-
-
-
-
-
-
-
-
-
-
   const apiUrl = "/api/topics";
 const topWords = document.querySelector(".top-topics ul");
 const wordList = document.querySelector(".word-info ul");

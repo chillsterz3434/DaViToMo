@@ -40,7 +40,7 @@ class DataSet:
         """Read all txt files in the dirname directory."""
         col = collection.find()
         for page in col:
-            title,pageid,text = page['title'],page['id'],page['text']
+            pageid,title,text = page['_id'],page['title'],page['text']
             text = [ word.lower() for word in text.split() ]
             self.pages.append(text)
             self.titles.append(title)

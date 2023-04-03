@@ -7,8 +7,52 @@ const cors = require('cors');
 const { PythonShell } = 'python-shell'
 const controller = new AbortController();
 const signal = controller.signal;
+require('dotenv').config();
+
+
+
+const { MongoClient } = require('mongodb');
+const uri = process.env.DB_URI;
+const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+const dbName = "DaViToMo";
+
+async function run(){
+    try{
+        await client.connect();
+        console.log("Connected correctly to server");
+        const db = client.db(dbName);
+
+        const col = db.collection("Morty_Smith");
+
+        const myDoc = await col.findOne();
+
+        console.log(myDoc);
+    } catch (e){
+        console.log(e.stack)
+    } 
+    finally{
+        await client.close();
+    }
+}
+
+// run().catch(console.dir);
+
+
+
+
+
+
+
+// client.connect(err => {
+//   const collection = client.db("test").collection("devices");
+//   // perform actions on the collection object
+//   client.close();
+// });
+
 
 var localTopics = []
+var mainPage = ""
+
 
 
 
@@ -24,6 +68,7 @@ app.get('/api/articles', (req, res) => {
 
 
  app.get('/api/articles/:title', (req, res) => {
+    mainPage = req.params.title;
     var dataToSend;
     // spawn new child process to call the python script
     const python = spawn('python', ['topic.py', req.params.title]);
