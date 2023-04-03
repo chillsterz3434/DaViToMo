@@ -4,6 +4,7 @@ import "./ArticleSearch.css";
 // import TopicCard from "../Cards/TopicCard";
 import Cards from "../Cards/Card";
 import TopicCard from "../Cards/TopicCard";
+import { useNavigate } from "react-router-dom";
 
 //TODO: get topics from server
 
@@ -16,6 +17,7 @@ function ArticleSearch() {
   const [topics, setTopics] = useState([])
   const [isLoading, setIsLoading] = useState(false)
   const [showButton, setShowButton] = useState(false)
+
 
 //   const topics = [
 //     {

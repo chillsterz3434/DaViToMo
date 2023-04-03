@@ -1,10 +1,26 @@
 import React from "react";
-import { useState } from "react";
+import { useLocation } from "react-router-dom";
 import "./TopicPage.css"
 import TopicCard from "../Cards/TopicCard";
 import DocumentCard from "../Cards/DocumentCard";
 
 function TopicPage() {
+
+  const location = useLocation();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   const apiUrl = "/api/topics";
 const topWords = document.querySelector(".top-topics ul");
 const wordList = document.querySelector(".word-info ul");
@@ -36,12 +52,12 @@ const topics = [
       "words": ["palpatine", "sith", "vader", "dummy"]
   }
 ]
-const titleTopic = [
-  {
-    "title": "Topic 0",
-    "words": ["games", "shooter", "first", "dummy","wars", "space", "saber","palpatine", "sith", "vader"]
-  }
-]
+// const titleTopic = [
+//   {
+//     "title": "Topic 0",
+//     "words": ["games", "shooter", "first", "dummy","wars", "space", "saber","palpatine", "sith", "vader"]
+//   }
+// ]
 
 
 // // Function to fetch data from API
@@ -99,23 +115,27 @@ const titleTopic = [
       <h2>Topic Selection</h2>
     </section>
     <section className="top-topics">
-      <h2>{titleTopic.map(topic => (
-          topic.words.slice(0,3).map(word => (
+    <h2>
+      
+      {
+          location.state.words.slice(0,3).map(word => (
             <>"{word}" </>
           ))
-        ))} </h2>
+        } 
+        </h2>
     </section>
     <section className="related-info">
       <div className="word-info">
         <h3>Words</h3>
-        {titleTopic.map(topic => (
-          topic.words.map(word => (
+        
+        {
+          location.state.words.map(word => (
             <ul>{word}</ul>
           ))
-        ))}
+        }
       </div>
       <div className="doc-info">
-        <h3>Related Documents</h3>
+        <h3>Related Articles</h3>
         {documents.map(doc => (
           <DocumentCard
           doc={doc}

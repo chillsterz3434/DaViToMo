@@ -8,14 +8,16 @@ import HomePage from '../HomePage/HomePage';
 
 const TopicCard = (props) => {
 
-    let navigate = useNavigate();
-    const handleClick = () =>{
-        let path = `/topics`
-        navigate(path)
+    const navigate = useNavigate();
+
+    const toTopicPage=()=>{
+      navigate('/topics', {state:{title:props.topic.title, words:props.topic.words}});
     }
+  
+
 
     return(
-        <button className='topic-card' onClick={handleClick}>
+        <button className='topic-card' onClick={()=>{toTopicPage()}}>
         <Card key={props.topic.title} className='topic-card'>
             
             <div className='card-content'>
