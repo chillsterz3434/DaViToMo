@@ -53,15 +53,6 @@ function filterData(event){
       setShowButton(true)
   }
 
-  // const form = document.querySelector('form')
-  //     if(form){
-  //       form.addEventListener('submit', (e) => {
-  //         e.preventDefault();
-  //         submitArticle(article)
-  //       }, []);
-  //     }
-  
-
 
   async function submitArticle(a) {
     try {
@@ -87,15 +78,6 @@ function filterData(event){
     setTopics(data)
     setIsLoading(false)
   }
-
-  
-
-
- 
-
-  
-
-
     return (
         
   <div>
