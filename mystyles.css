@@ -33,7 +33,6 @@ nav { font-weight: bold;
 }
 nav a { text-decoration: none; }
 nav a:link { color: #FFFFFF; }
-nav a:visited { color: #FFFFFF }
 nav a:hover { color: #FF0000; }
 nav ul { list-style-type: none;
        margin: 0;
