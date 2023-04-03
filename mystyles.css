@@ -32,9 +32,9 @@ nav { font-weight: bold;
      padding: 20px 5px 0 20px;
 }
 nav a { text-decoration: none; }
-nav a:link { color: #0703fc; }
+nav a:link { color: #FFFFFF; }
 nav a:visited { color: #344873 }
-nav a:hover { color: #FFFFFF; }
+nav a:hover { color: #FF0000; }
 nav ul { list-style-type: none;
        margin: 0;
        padding-left: 0;
