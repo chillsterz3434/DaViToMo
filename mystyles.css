@@ -8,7 +8,7 @@ body { background-color:#eee;
            max-width: 1024px;
            margin-right: auto;
            margin-left: auto;
-           background-color:#231F20;
+           background-color:#b1b1b1;
            box-shadow: 3px 3px 3px #666666;
 }
 header { background-color: #231F20;
@@ -33,7 +33,7 @@ nav { font-weight: bold;
 }
 nav a { text-decoration: none; }
 nav a:link { color: #FFFFFF; }
-nav a:hover { color: #FF0000; }
+nav a:hover { color: #0800ff; }
 nav ul { list-style-type: none;
        margin: 0;
        padding-left: 0;
