@@ -58,7 +58,7 @@ if col == None:
 
         # Check if we already downloaded the page, and skip if it exists
         pageid = page.pageid
-        if collection.find_one({"id": pageid}):
+        if collection.find_one({"_id": pageid}):
             print("    page previously saved, skipping")
             continue
 
@@ -69,7 +69,7 @@ if col == None:
         clean_text = re.sub('[^A-Za-z]+', ' ', text)
 
         # Insert the article into the MongoDB collection
-        article = {"title": title, "id": pageid, "text": clean_text}
+        article = {"_id": pageid, "title": title,  "text": clean_text}
         collection.insert_one(article)
     
 

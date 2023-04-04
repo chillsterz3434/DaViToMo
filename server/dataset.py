@@ -40,7 +40,7 @@ class DataSet:
         """Read all txt files in the dirname directory."""
         col = collection.find()
         for page in col:
-            title,pageid,text = page['title'],page['id'],page['text']
+            pageid,title,text = page['_id'],page['title'],page['text']
             text = [ word.lower() for word in text.split() ]
             self.pages.append(text)
             self.titles.append(title)
@@ -111,7 +111,7 @@ class DataSet:
         # Data that we will send in a post request.
         data={'title': header, 'words': x}
         # The post request to node server
-        res = requests.post('http://localhost:5000/api/topics', json=data)
+        res = requests.post('http://localhost:5000/api/pytopics', json=data)
         # Convert response data to json
         returned_data = res.json()
 
@@ -128,7 +128,3 @@ class DataSet:
 
         header = "common words (out of %d total)" % total
         self.print_word_probability_table(pr,header)
-
-    def index_to_word(self, index):
-        """Return the word corresponding to the given index."""
-        return self.words[index]

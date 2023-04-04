@@ -1,10 +1,43 @@
 import React from "react";
 import "./DocumentPage.css"
+import TopicCard from "../Cards/TopicCard";
+import DocumentCard from "../Cards/DocumentCard";
+import { useLocation } from "react-router-dom";
 
 function DocumentPage() {
+
+  const location = useLocation();
   const heatmapData = [[1, 2, 3], [4, 5, 6], [7, 8, 9]];
   const documentText = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.";
   const relatedDocuments = ["Document 1", "Document 2", "Document 3"];
+
+
+  const documents = [
+    {
+      "id": 1,
+      "title": "Morty Smith",
+      "text": "This is an article about Morty Smith"
+    },
+    {
+      "id": 2,
+      "title": "Destiny 2",
+      "text": "This is an article about Destiny 2"
+    }
+  ]
+  const topics = [
+    {
+        "title": "Topic 0",
+        "words": ["games", "shooter", "first", "dummy"]
+    },
+    {
+        "title": "Topic 1",
+        "words": ["wars", "space", "saber", "dummy"]
+    },
+    {
+        "title": "Topic 2",
+        "words": ["palpatine", "sith", "vader", "dummy"]
+    }
+  ]
   
   // Add code to display the heatmap here
   // Add code to display the document text here
@@ -17,38 +50,42 @@ function DocumentPage() {
   return(
 
 <main>
+<section className="banner">
+      <h2>{location.state.title}</h2>
+    </section>
   <div class="heatmap">
     <h2>Heatmap</h2>
     {/* <!-- Add the code to display the heatmap here --> */}
-  </div>
 
-  <div class="document-text">
-    <h2>Document Text</h2>
-    <p>Understanding and navigating large collections of docu- ments has become an important activity in many spheres. However, many document collections are not coherently or- ganized and organizing them by hand is impractical. We need automated ways to discover and visualize the structure of a collection in order to more easily explore its contents.
-Probabilistic topic modeling is a set of machine learning tools that may provide a solution (Blei and Lafferty 2009). Topic modeling algorithms discover a hidden thematic struc- ture in a collection of documents; they find salient themes and represent each document as a combination of themes.
-However, topic models are high-level statistical tools. A user must scrutinize numerical distributions to understand and explore their results; the raw output of the model is not enough to create an easily explored corpus.</p>
-    {/* <!-- Add the code to display the document text here --> */}
   </div>
+<section className="related-info">
   <div class="related-topics">
-    <h2>Related Topics</h2>
-    <ul>
-      <li><a href="#">Topic 1</a></li>
-      <li><a href="#">Topic 2</a></li>
-      <li><a href="#">Topic 3</a></li>
-      {/* <!-- Add more related topics here --> */}
-    </ul>
+    <h3>Related Topics</h3>
+    {topics.map(topic => (
+          <TopicCard
+          topic={topic}
+          key={topic.title}
+          />
+        ))}
+  </div>
+  <div class="document-text">
+    <h3>Document Text</h3>
+    {location.state.text}
   </div>
   <div class="related-documents">
-    <h2>Related Documents</h2>
-    <ul>
-      <li><a href="#">Document 1</a></li>
-      <li><a href="#">Document 2</a></li>
-      <li><a href="#">Document 3</a></li>
-      {/* <!-- Add more related documents here --> */}
-    </ul>
+    <h3>Related Documents</h3>
+    {documents.map(doc => (
+          <DocumentCard
+          doc={doc}
+          key={doc.id}
+          />
+        ))}
   </div>
+  </section>
 </main>
   ) 
-}
+};
+
+
 
 export default DocumentPage;

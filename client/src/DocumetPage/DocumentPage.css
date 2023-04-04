@@ -6,9 +6,6 @@ header {
   background-color: #f2f2f2;
 }
 
-.logo img {
-  height: 3em;
-}
 
 .heatmap {
   width: 33%;
@@ -17,39 +14,26 @@ header {
   padding: 1em;
 }
 
-
-.related-topics ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-.related-documents ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
 .related-topics {
-  width: 26%;
-  display: inline-block;
-  vertical-align: top;
-  padding: 1em;
-}
-
-.related-topics li{
-  margin: 0.5em 0;
-}
-.related-documents li {
-  margin: 0.5em 0;
+  width: 30%;
 }
 
 .document-text {
-  width: 25%;
-  display: inline-block;
-  vertical-align: top;
-  padding: 1em;
+  width: 40%;
 }
 
 .related-documents {
-  margin-top: 1em;
+  width: 20%;
+}
+
+.related-info {
+  background-color: #fff;
+  padding: 20px;
+  margin-top: 20px;
+}
+
+.word-info, .doc-info, .topic-info {
+  background-color: #f2f2f2;
+  padding: 20px;
+  margin: 10px;
 }
