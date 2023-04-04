@@ -94,7 +94,7 @@ function filterData(event){
         {!showButton && <button type="submit" id="search-btn" className="btn" onClick={handleClick}>Run Script</button>
         }
         </form>
-        {isLoading && article!=="" && <p>Loading Topics...</p>}
+        {isLoading && <p>Loading Topics...</p>}
         {!isLoading && topics && (topics.length > 0 ? topics.map(topic => (
         <TopicCard
           topic={topic}

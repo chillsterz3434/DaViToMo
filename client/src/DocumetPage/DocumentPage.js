@@ -2,17 +2,16 @@ import React from "react";
 import "./DocumentPage.css"
 import TopicCard from "../Cards/TopicCard";
 import DocumentCard from "../Cards/DocumentCard";
+import { useLocation } from "react-router-dom";
 
 function DocumentPage() {
+
+  const location = useLocation();
   const heatmapData = [[1, 2, 3], [4, 5, 6], [7, 8, 9]];
   const documentText = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.";
   const relatedDocuments = ["Document 1", "Document 2", "Document 3"];
 
-  const mainDoc = {
-    "id": 1,
-      "title": "Morty Smith",
-      "text": "This is an article about Morty Smith"
-  }
+
   const documents = [
     {
       "id": 1,
@@ -52,7 +51,7 @@ function DocumentPage() {
 
 <main>
 <section className="banner">
-      <h2>{mainDoc.title}</h2>
+      <h2>{location.state.title}</h2>
     </section>
   <div class="heatmap">
     <h2>Heatmap</h2>
@@ -71,7 +70,7 @@ function DocumentPage() {
   </div>
   <div class="document-text">
     <h3>Document Text</h3>
-    {mainDoc.text}
+    {location.state.text}
   </div>
   <div class="related-documents">
     <h3>Related Documents</h3>
@@ -85,6 +84,8 @@ function DocumentPage() {
   </section>
 </main>
   ) 
-}
+};
+
+
 
 export default DocumentPage;

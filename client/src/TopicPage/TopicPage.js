@@ -14,11 +14,16 @@ const wordList = document.querySelector(".word-info ul");
 const topicList = document.querySelector(".topic-info ul");
 
 const [isLoading, setIsLoading] = useState(false);
-const [articles, setArticles] = useState([])
+const [articles, setArticles] = useState([]);
+// const [topics, setTopics] = useState([]);
 
 useEffect(() => {
   fetchArticles();
 }, [])
+
+// useEffect(() => {
+//   fetchTopics();
+// }, [])
 
 async function fetchArticles() {
   setIsLoading(true)
@@ -32,18 +37,18 @@ async function fetchArticles() {
   setIsLoading(false)
 }
 
-const documents = [
-  {
-    "id": 1,
-    "title": "Morty Smith",
-    "text": "This is an article about Morty Smith"
-  },
-  {
-    "id": 2,
-    "title": "Destiny 2",
-    "text": "This is an article about Destiny 2"
-  }
-]
+// async function fetchTopics() {
+//   setIsLoading(true)
+//   const response = await fetch('api/topics')
+//   if (!response.ok) {
+//     throw new Error('Request failed with status '+response.status)
+//   }
+//   const data = await response.json()
+//   setTopics(data)
+//   setIsLoading(false)
+// }
+
+
 const topics = [
   {
       "title": "Topic 0",
@@ -58,12 +63,12 @@ const topics = [
       "words": ["palpatine", "sith", "vader", "dummy"]
   }
 ]
-// const titleTopic = [
-//   {
-//     "title": "Topic 0",
-//     "words": ["games", "shooter", "first", "dummy","wars", "space", "saber","palpatine", "sith", "vader"]
-//   }
-// ]
+const titleTopic = [
+  {
+    "title": "Topic 0",
+    "words": ["games", "shooter", "first", "dummy","wars", "space", "saber","palpatine", "sith", "vader"]
+  }
+]
 
 
 // // Function to fetch data from API
@@ -142,7 +147,7 @@ const topics = [
       </div>
       <div className="doc-info">
         <h3>Related Articles</h3>
-        {documents.map(doc => (
+        {articles.map(doc => (
           <DocumentCard
           doc={doc}
           key={doc.id}

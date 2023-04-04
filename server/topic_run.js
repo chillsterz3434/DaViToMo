@@ -30,7 +30,10 @@ async function run(mainPage){
             .toArray()
             .then(items => {
                 console.log(`Successfully found ${items.length} documents.`)
-                items.forEach(console.log)
+                // items.forEach(console.log)
+                items.map(doc => {
+                    localArticles.push(doc)
+                })
                 return items
             })
         // col.findOne();
@@ -114,7 +117,9 @@ app.get("/api/topics", (req, res) => {
 })
 
 app.get("/api/articles", (req, res) => {
-    res.send(run(mainPage).catch(console.dir))
+    // res.send(run(mainPage).catch(console.dir))
+    run(mainPage).catch(console.dir)
+    res.send(localArticles)
 })
 
 
