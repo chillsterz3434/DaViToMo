@@ -51,12 +51,12 @@ function filterData(event){
   const handleClick = () => {
       var key=searchInput.split(' ').join('_')
       submitArticle(key);
-      setSearchInput("")
       setShowButton(true)
   }
 
 
   async function submitArticle(a) {
+    setIsLoading(true)
     try {
       await fetch(`/api/articles/${a}`, {
         method: "GET",
