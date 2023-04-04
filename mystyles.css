@@ -72,5 +72,5 @@ main ul { list-style-position: inside; }
 header, nav, main, footer { display: block; }
 
 .bios{
-    
+    flex-direction: column;
 }
