@@ -8,8 +8,6 @@ function DocumentPage() {
 
   const location = useLocation();
   const heatmapData = [[1, 2, 3], [4, 5, 6], [7, 8, 9]];
-  const documentText = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.";
-  const relatedDocuments = ["Document 1", "Document 2", "Document 3"];
 
 
   const documents = [
