@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import "./TopicPage.css"
 import TopicCard from "../Cards/TopicCard";
@@ -12,6 +12,25 @@ function TopicPage() {
 const topWords = document.querySelector(".top-topics ul");
 const wordList = document.querySelector(".word-info ul");
 const topicList = document.querySelector(".topic-info ul");
+
+const [isLoading, setIsLoading] = useState(false);
+const [articles, setArticles] = useState([])
+
+useEffect(() => {
+  fetchArticles();
+}, [])
+
+async function fetchArticles() {
+  setIsLoading(true)
+  const response = await fetch('api/articles')
+  if(!response.ok) {
+    throw new Error('Request failed with status '+response.status)
+  }
+  const data = await response.json()
+  console.log(data)
+  setArticles(data)
+  setIsLoading(false)
+}
 
 const documents = [
   {

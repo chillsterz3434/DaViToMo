@@ -16,17 +16,29 @@ const uri = process.env.DB_URI;
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 const dbName = "DaViToMo";
 
-async function run(){
+async function run(mainPage){
     try{
         await client.connect();
         console.log("Connected correctly to server");
         const db = client.db(dbName);
 
-        const col = db.collection("Morty_Smith");
+        const col = db.collection(mainPage);
 
-        const myDoc = await col.findOne();
+        const query = {"_id": {"$exists": true}};
+        const projection = {"text": 0};
+        await col.find(query, projection)
+            .toArray()
+            .then(items => {
+                console.log(`Successfully found ${items.length} documents.`)
+                items.forEach(console.log)
+                return items
+            })
+        // col.findOne();
+        // const myDoc = await col.findOne();
 
-        console.log(myDoc);
+        // console.log(myDoc);
+
+
     } catch (e){
         console.log(e.stack)
     } 
@@ -35,7 +47,8 @@ async function run(){
     }
 }
 
-// run().catch(console.dir);
+
+
 
 
 
@@ -51,7 +64,9 @@ async function run(){
 
 
 var localTopics = []
+var localArticles = []
 var mainPage = ""
+var items=""
 
 
 
@@ -62,9 +77,9 @@ app.use(bodyParser.json());
 app.use(cors())
 
 
-app.get('/api/articles', (req, res) => {
-    res.json({message: "Hello from server"})
-})
+// app.get('/api/articles', (req, res) => {
+//     res.json({message: "Hello from server"})
+// })
 
 
  app.get('/api/articles/:title', (req, res) => {
@@ -96,6 +111,10 @@ app.post("/api/pytopics", (req, res) => {
 
 app.get("/api/topics", (req, res) => {
     res.send(localTopics);
+})
+
+app.get("/api/articles", (req, res) => {
+    res.send(run(mainPage).catch(console.dir))
 })
 
 
