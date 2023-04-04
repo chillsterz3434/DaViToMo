@@ -70,3 +70,7 @@ main img { float: left;
 main ul { list-style-position: inside; }
 .clear { clear: both; }
 header, nav, main, footer { display: block; }
+
+.bios{
+    color: red;
+}
