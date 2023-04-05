@@ -1,27 +1,54 @@
-import React from "react";
-import { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 import "./TopicPage.css"
 import TopicCard from "../Cards/TopicCard";
 import DocumentCard from "../Cards/DocumentCard";
 
 function TopicPage() {
+
+  const location = useLocation();
+
   const apiUrl = "/api/topics";
 const topWords = document.querySelector(".top-topics ul");
 const wordList = document.querySelector(".word-info ul");
 const topicList = document.querySelector(".topic-info ul");
 
-const documents = [
-  {
-    "id": 1,
-    "title": "Morty Smith",
-    "text": "This is an article about Morty Smith"
-  },
-  {
-    "id": 2,
-    "title": "Destiny 2",
-    "text": "This is an article about Destiny 2"
+const [isLoading, setIsLoading] = useState(false);
+const [articles, setArticles] = useState([]);
+// const [topics, setTopics] = useState([]);
+
+useEffect(() => {
+  fetchArticles();
+}, [])
+
+// useEffect(() => {
+//   fetchTopics();
+// }, [])
+
+async function fetchArticles() {
+  setIsLoading(true)
+  const response = await fetch('api/articles')
+  if(!response.ok) {
+    throw new Error('Request failed with status '+response.status)
   }
-]
+  const data = await response.json()
+  console.log(data)
+  setArticles(data)
+  setIsLoading(false)
+}
+
+// async function fetchTopics() {
+//   setIsLoading(true)
+//   const response = await fetch('api/topics')
+//   if (!response.ok) {
+//     throw new Error('Request failed with status '+response.status)
+//   }
+//   const data = await response.json()
+//   setTopics(data)
+//   setIsLoading(false)
+// }
+
+
 const topics = [
   {
       "title": "Topic 0",
@@ -99,24 +126,28 @@ const titleTopic = [
       <h2>Topic Selection</h2>
     </section>
     <section className="top-topics">
-      <h2>{titleTopic.map(topic => (
-          topic.words.slice(0,3).map(word => (
+    <h2>
+      
+      {
+          location.state.words.slice(0,3).map(word => (
             <>"{word}" </>
           ))
-        ))} </h2>
+        } 
+        </h2>
     </section>
     <section className="related-info">
       <div className="word-info">
         <h3>Words</h3>
-        {titleTopic.map(topic => (
-          topic.words.map(word => (
+        
+        {
+          location.state.words.map(word => (
             <ul>{word}</ul>
           ))
-        ))}
+        }
       </div>
       <div className="doc-info">
-        <h3>Related Documents</h3>
-        {documents.map(doc => (
+        <h3>Related Articles</h3>
+        {articles.map(doc => (
           <DocumentCard
           doc={doc}
           key={doc.id}

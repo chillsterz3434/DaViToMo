@@ -7,14 +7,14 @@ import {useNavigate} from 'react-router-dom'
 
 const DocumentCard = (props) => {
 
-    let navigate = useNavigate();
-    const handleClick = () =>{
-        let path = `/document`
-        navigate(path)
+    const navigate = useNavigate();
+
+    const toDocumentPage=()=> {
+        navigate('/document', {state:{id:props.doc.id, title:props.doc.title, text:props.doc.text}})
     }
 
     return(
-        <button className='document-card' onClick={handleClick}>
+        <button className='document-card' onClick={()=>{toDocumentPage()}}>
         <Card key={props.doc.id} className='document-card'>
             
             <div className='card-content'>
@@ -30,13 +30,13 @@ const DocumentCard = (props) => {
 };
 
 
-
-// TopicCard.propTypes = {
-//     topic: PropTypes.shape({
-//         title: PropTypes.string,
-//         words: PropTypes.arrayOf(PropTypes.string),
-//     }),
-// }
+DocumentCard.propTypes = {
+    document: PropTypes.shape({
+      id: PropTypes.string,
+      title: PropTypes.string,
+      text: PropTypes.string,
+    }),
+  }
 
 
 

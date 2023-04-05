@@ -175,8 +175,8 @@ ll = tm.em()
 tm.print_topics_and_top_articles()
 print("final log likelihood = %.8f" % ll)
 
-tm.Prtd_heatmap()
-tm.Prwt_heatmap()
-tm.generate_wordcloud()
+# tm.Prtd_heatmap()
+# tm.Prwt_heatmap()
+# tm.generate_wordcloud()
 
 

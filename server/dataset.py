@@ -40,7 +40,7 @@ class DataSet:
         """Read all txt files in the dirname directory."""
         col = collection.find()
         for page in col:
-            title,pageid,text = page['title'],page['id'],page['text']
+            pageid,title,text = page['_id'],page['title'],page['text']
             text = [ word.lower() for word in text.split() ]
             self.pages.append(text)
             self.titles.append(title)
@@ -93,12 +93,14 @@ class DataSet:
         vectors = [ self._page_to_vector(page) for page in self.pages ]
         self.vectors = np.array(vectors)
 
+
     def get_word_probability_table(self,pr,header,length=20):
         """Return a list of word probability tuples.
            Return the top most probable words, based on length"""
         word_pr = [(w, p) for w, p in enumerate(pr)]
         word_pr.sort(key=lambda x: x[1], reverse=True)
         return [(self.words[w], p) for w, p in word_pr[:length]]
+
 
     def print_common_words(self):
         """print list of most frequently appearing words"""
@@ -107,8 +109,10 @@ class DataSet:
         pr = [ c/total for c in counts ]
 
         header = "common words (out of %d total)" % total
+
         self.get_word_probability_table(pr,header)
 
     def index_to_word(self, index):
         """Return the word corresponding to the given index."""
         return self.words[index]
+
