@@ -76,7 +76,8 @@ header, nav, main, footer { display: block; }
 
 .bios{
     flex-direction: row;
+    height: 200px;
 }
 .bio{
-    height: 100%;
+    height: 200px;
 }
