@@ -78,3 +78,6 @@ header, nav, main, footer { display: block; }
     flex-direction: row;
     display: block;
 }
+.bio{
+    height: 150px;
+}
