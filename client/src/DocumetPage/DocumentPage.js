@@ -10,8 +10,8 @@ function DocumentPage() {
   const heatmapData = [[1, 2, 3], [4, 5, 6], [7, 8, 9]];
   const [isLoading, setIsLoading] = useState(false);
   const [prtdMap, setPrtdMap] = useState({})
-  // const [prwtMap, setPrwtMap] = useState({})
-  // const [wordCloud, setWordCloud] = useState({})
+  const [prwtMap, setPrwtMap] = useState({})
+  const [wordCloud, setWordCloud] = useState({})
 
 
   const documents = [
@@ -43,8 +43,8 @@ function DocumentPage() {
 
   useEffect(() => {
     fecthPrtdMap();
-    // fetchPrwtMap();
-    // fetchWordCloud();
+    fetchPrwtMap();
+    fetchWordCloud();
   }, [])
 
   async function fecthPrtdMap() {
@@ -59,29 +59,29 @@ function DocumentPage() {
     setIsLoading(false)
   }
 
-  // async function fetchPrwtMap() {
-  //   setIsLoading(true)
-  //   const response = await fetch('api/graphs/prwtmap')
-  //   if(!response.ok) {
-  //     throw new Error('Request failed with status '+response.status)
-  //   }
-  //   const data = await response.json()
-  //   console.log(data)
-  //   setPrwtMap(data)
-  //   setIsLoading(false)
-  // }
+  async function fetchPrwtMap() {
+    setIsLoading(true)
+    const response = await fetch('api/graphs/prwtmap')
+    if(!response.ok) {
+      throw new Error('Request failed with status '+response.status)
+    }
+    const data = await response.json()
+    console.log(data)
+    setPrwtMap(data)
+    setIsLoading(false)
+  }
 
-  // async function fetchWordCloud() {
-  //   setIsLoading(true)
-  //   const response = await fetch('api/graphs/wordcloud')
-  //   if(!response.ok) {
-  //     throw new Error('Request failed with status '+response.status)
-  //   }
-  //   const data = await response.json()
-  //   console.log(data)
-  //   setWordCloud(data)
-  //   setIsLoading(false)
-  // }
+  async function fetchWordCloud() {
+    setIsLoading(true)
+    const response = await fetch('api/graphs/wordcloud')
+    if(!response.ok) {
+      throw new Error('Request failed with status '+response.status)
+    }
+    const data = await response.json()
+    console.log(data)
+    setWordCloud(data)
+    setIsLoading(false)
+  }
 
 
   return(
@@ -93,6 +93,8 @@ function DocumentPage() {
   <div className="heatmap">
     <h2>Heatmap</h2>
     {!isLoading && <img src={`data:image/png;base64,${prtdMap.image}`} width={600} height={500}/>}
+    {!isLoading && <img src={`data:image/png;base64,${prwtMap.image}`} width={600} height={500}/>}
+    {!isLoading && <img src={`data:image/png;base64,${wordCloud.image}`} width={600} height={500}/>}
 
   </div>
 <section className="related-info">
