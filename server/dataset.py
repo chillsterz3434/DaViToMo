@@ -93,32 +93,14 @@ class DataSet:
         vectors = [ self._page_to_vector(page) for page in self.pages ]
         self.vectors = np.array(vectors)
 
-    def print_word_probability_table(self,pr,header,length=20):
-        """print out a word probability table.
-        print out the top most probable words, based on length"""
-        print("========================================")
-        print("==", header)
-        print("========================================")
-        x=[]
-        word_pr = [ (w,p) for w,p in enumerate(pr) ]
-        word_pr.sort(key=lambda x: x[1],reverse=True)
-        for w,pr in word_pr[:length]:
-            word = self.words[w]
-            y=json.dumps([{"word":word,"pr":(100*pr)}])
-            x.append(word)
-            print("%20s | %.4f%%" % (word,100*pr))
-        
-        # Data that we will send in a post request.
-        data={'title': header, 'words': x}
-        # The post request to node server
-        res = requests.post('http://localhost:5000/api/pytopics', json=data)
-        # Convert response data to json
-        returned_data = res.json()
 
-        print(returned_data)
-        result = returned_data['result'] 
-        print(result)
-        # print(y_words)
+    def get_word_probability_table(self,pr,header,length=20):
+        """Return a list of word probability tuples.
+           Return the top most probable words, based on length"""
+        word_pr = [(w, p) for w, p in enumerate(pr)]
+        word_pr.sort(key=lambda x: x[1], reverse=True)
+        return [(self.words[w], p) for w, p in word_pr[:length]]
+
 
     def print_common_words(self):
         """print list of most frequently appearing words"""
@@ -127,4 +109,10 @@ class DataSet:
         pr = [ c/total for c in counts ]
 
         header = "common words (out of %d total)" % total
-        self.print_word_probability_table(pr,header)
+
+        self.get_word_probability_table(pr,header)
+
+    def index_to_word(self, index):
+        """Return the word corresponding to the given index."""
+        return self.words[index]
+
