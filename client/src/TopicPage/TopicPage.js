@@ -147,11 +147,12 @@ const titleTopic = [
       </div>
       <div className="doc-info">
         <h3>Related Articles</h3>
-        {articles.map(doc => (
+        {location.state.articles.map(doc => (
           <DocumentCard
           doc={doc}
           key={doc.id}
           />
+          // <ul>{doc}</ul>
         ))}
       </div>
       <div className="topic-info">

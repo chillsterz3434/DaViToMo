@@ -82,7 +82,7 @@ class TopicModel:
             a = []
 
             for word, prob in word_probs:
-                y = json.dumps([{"word":word, "pr":(100*prob)}])
+                # y = json.dumps([{"word":word, "pr":(100*prob)}])
                 x.append(word)
                 print("%20s | %.4f%%" % (word, 100 * prob))
             print()
@@ -91,11 +91,12 @@ class TopicModel:
             top_articles = np.argsort(self.pr_td[:, t])[-10:][::-1]
             top_article_titles = ([self.data.titles[a].strip() for a in top_articles])
             print("Top articles: " + "\n")
-            for title in top_article_titles:
-                stripped_title = title.replace("title: ", "")
-                a.append(stripped_title)
-                print(stripped_title)
-            print()
+            for i in range(len(top_article_titles)):
+                y= {"id": top_articles[i], "title": top_article_titles[i]}
+                # stripped_title = title.replace("title: ", "")
+                a.append(y)
+                print(y)
+            print(a)
 
             data = {'title': header, 'words': x, 'articles': a}
             res = requests.post('http://localhost:5000/api/pytopics', json=data)
