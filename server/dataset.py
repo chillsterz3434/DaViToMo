@@ -41,9 +41,10 @@ class DataSet:
         col = collection.find()
         for page in col:
             pageid,title,text = page['_id'],page['title'],page['text']
-            text = [ word.lower() for word in text.split() ]
-            self.pages.append(text)
+            text_tm = [ word.lower() for word in text.split() ]
+            self.pages.append(text_tm)
             self.titles.append(title)
+            
 
     def _load_stopwords(self,filename="stopwords"):
         """Read list of stopwords."""

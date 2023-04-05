@@ -6,6 +6,9 @@ from dataset import DataSet
 from wordcloud import WordCloud
 import json
 import requests
+from download import main_page, db
+
+collection = db[main_page]
 
 
 count_limit = 35     # minimum times a word has to appear in the corpus
@@ -92,7 +95,12 @@ class TopicModel:
             top_article_titles = ([self.data.titles[a].strip() for a in top_articles])
             print("Top articles: " + "\n")
             for i in range(len(top_article_titles)):
-                y= {"id": top_articles[i], "title": top_article_titles[i]}
+                # cursor = collection.find({"_id": str(top_articles[i])}, {"_id":0, "title":0})
+                # list_cur = list(cursor)
+                # json_data = json.dumps(list_cur)
+                rawtext = self.data.pages[top_articles[i]]
+                if len(rawtext) > 2400: rawtext = rawtext[:int(len(rawtext)/2)] + list("...")
+                y= {"id": str(top_articles[i]), "title": top_article_titles[i], "text": " ".join(rawtext)}
                 # stripped_title = title.replace("title: ", "")
                 a.append(y)
                 print(y)

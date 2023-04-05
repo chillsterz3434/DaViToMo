@@ -15,15 +15,15 @@ const topicList = document.querySelector(".topic-info ul");
 
 const [isLoading, setIsLoading] = useState(false);
 const [articles, setArticles] = useState([]);
-// const [topics, setTopics] = useState([]);
+const [topics, setTopics] = useState([]);
 
 useEffect(() => {
   fetchArticles();
 }, [])
 
-// useEffect(() => {
-//   fetchTopics();
-// }, [])
+useEffect(() => {
+  fetchTopics();
+}, [])
 
 async function fetchArticles() {
   setIsLoading(true)
@@ -37,32 +37,32 @@ async function fetchArticles() {
   setIsLoading(false)
 }
 
-// async function fetchTopics() {
-//   setIsLoading(true)
-//   const response = await fetch('api/topics')
-//   if (!response.ok) {
-//     throw new Error('Request failed with status '+response.status)
-//   }
-//   const data = await response.json()
-//   setTopics(data)
-//   setIsLoading(false)
-// }
-
-
-const topics = [
-  {
-      "title": "Topic 0",
-      "words": ["games", "shooter", "first", "dummy"]
-  },
-  {
-      "title": "Topic 1",
-      "words": ["wars", "space", "saber", "dummy"]
-  },
-  {
-      "title": "Topic 2",
-      "words": ["palpatine", "sith", "vader", "dummy"]
+async function fetchTopics() {
+  setIsLoading(true)
+  const response = await fetch('api/topics')
+  if (!response.ok) {
+    throw new Error('Request failed with status '+response.status)
   }
-]
+  const data = await response.json()
+  setTopics(data)
+  setIsLoading(false)
+}
+
+
+// const topics = [
+//   {
+//       "title": "Topic 0",
+//       "words": ["games", "shooter", "first", "dummy"]
+//   },
+//   {
+//       "title": "Topic 1",
+//       "words": ["wars", "space", "saber", "dummy"]
+//   },
+//   {
+//       "title": "Topic 2",
+//       "words": ["palpatine", "sith", "vader", "dummy"]
+//   }
+// ]
 const titleTopic = [
   {
     "title": "Topic 0",
