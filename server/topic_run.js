@@ -1,9 +1,9 @@
-const express = require("express");
-const bodyParser = require("body-parser");
-const {spawn} = require('child_process');
+import express from "express";
+import { urlencoded, json } from "body-parser";
+import { spawn } from 'child_process';
 const PORT = process.env.PORT || 5000;
 const app = express();
-const cors = require('cors');
+import cors from 'cors';
 const { PythonShell } = 'python-shell'
 const controller = new AbortController();
 const signal = controller.signal;
@@ -11,7 +11,7 @@ require('dotenv').config();
 
 
 
-const { MongoClient } = require('mongodb');
+import { MongoClient } from 'mongodb';
 const uri = process.env.DB_URI;
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 const dbName = "DaViToMo";
@@ -75,8 +75,8 @@ var items=""
 
 
 // Tell express to use the body-parser middleware and to not parse extended bodies
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
+app.use(urlencoded({ extended: false }));
+app.use(json());
 app.use(cors())
 
 
