@@ -1,9 +1,9 @@
-import express from "express";
-import { urlencoded, json } from "body-parser";
-import { spawn } from 'child_process';
+const express = require("express");
+const bodyParser = require("body-parser");
+const {spawn} = require('child_process');
 const PORT = process.env.PORT || 5000;
 const app = express();
-import cors from 'cors';
+const cors = require('cors');
 const { PythonShell } = 'python-shell'
 const controller = new AbortController();
 const signal = controller.signal;
@@ -11,7 +11,7 @@ require('dotenv').config();
 
 
 
-import { MongoClient } from 'mongodb';
+const { MongoClient } = require('mongodb');
 const uri = process.env.DB_URI;
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 const dbName = "DaViToMo";
@@ -68,15 +68,17 @@ async function run(mainPage){
 
 var localTopics = []
 var localArticles = []
+var localPrtdHeatmap = {}
+var localPrwtHeatmap = {}
+var localWordCloud = {}
 var mainPage = ""
-var items=""
 
 
 
 
 // Tell express to use the body-parser middleware and to not parse extended bodies
-app.use(urlencoded({ extended: false }));
-app.use(json());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 app.use(cors())
 
 
@@ -112,6 +114,24 @@ app.post("/api/pytopics", (req, res) => {
     res.json({result: "True"})
 });
 
+app.post("/api/pygraphs/prtdmap", (req, res) => {
+    // Retrieve json data from post body
+    localPrtdHeatmap = req.body;
+    console.log(req.body);
+    res.json({result: "True"})
+    
+})
+app.post("/api/pygraphs/prwtmap", (req, res) => {
+    localPrwtHeatmap = req.body;
+    console.log(req.body);
+    res.json({result: "True"})
+})
+app.post("/api/pygraphs/wordcloud", (req, res) => {
+    localWordCloud = req.body;
+    console.log(req.body);
+    res.json({result: "True"})
+})
+
 app.get("/api/topics", (req, res) => {
     res.send(localTopics);
 })
@@ -120,6 +140,18 @@ app.get("/api/articles", (req, res) => {
     // res.send(run(mainPage).catch(console.dir))
     run(mainPage).catch(console.dir)
     res.send(localArticles)
+})
+
+app.get("/api/graphs/prtdmap", (req, res) => {
+    res.send(localPrtdHeatmap);
+})
+
+app.get("/api/graphs/prwtmap", (req, res) => {
+    res.send(localPrwtHeatmap);
+})
+
+app.get("/api/graphs/wordcloud", (req, res) => {
+    res.send(localWordCloud);
 })
 
 
