@@ -11,7 +11,7 @@ const TopicCard = (props) => {
     const navigate = useNavigate();
 
     const toTopicPage=()=>{
-      navigate('/topics', {state:{title:props.topic.title, words:props.topic.words}});
+      navigate('/topics', {state:{title:props.topic.title, words:props.topic.words, articles:props.topic.articles}});
     }
   
 
@@ -46,6 +46,7 @@ TopicCard.propTypes = {
     topic: PropTypes.shape({
         title: PropTypes.string,
         words: PropTypes.arrayOf(PropTypes.string),
+        articles: PropTypes.arrayOf(PropTypes.string),
     }),
 }
 

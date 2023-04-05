@@ -8,13 +8,16 @@ import json
 import io
 import base64
 import requests
+from download import main_page, db
 
 
 
 
+collection = db[main_page]
 
-count_limit = 25     # minimum times a word has to appear in the corpus
-topic_count = 7     # number of topics
+
+count_limit = 35     # minimum times a word has to appear in the corpus
+topic_count = 12     # number of topics
 max_iterations = 100 # maximum number of EM iterations
 
 
@@ -74,11 +77,47 @@ class TopicModel:
             ll += doc_ll@vector
         return ll/N
 
-    def print_topics(self):
-        for t,pr_w in enumerate(self.pr_wt):
+    def print_topics_and_top_articles(self):
+        for t, pr_w in enumerate(self.pr_wt):
             header = "topic %d" % t
-            
-            data.print_word_probability_table(pr_w,header)
+            word_probs = self.data.get_word_probability_table(pr_w, header)
+
+            print("========================================")
+            print("==", header)
+            print("========================================")
+
+            x = []
+            a = []
+
+            for word, prob in word_probs:
+                # y = json.dumps([{"word":word, "pr":(100*prob)}])
+                x.append(word)
+                print("%20s | %.4f%%" % (word, 100 * prob))
+            print()
+
+            # Print top articles for the current topic
+            top_articles = np.argsort(self.pr_td[:, t])[-10:][::-1]
+            top_article_titles = ([self.data.titles[a].strip() for a in top_articles])
+            print("Top articles: " + "\n")
+            for i in range(len(top_article_titles)):
+                # cursor = collection.find({"_id": str(top_articles[i])}, {"_id":0, "title":0})
+                # list_cur = list(cursor)
+                # json_data = json.dumps(list_cur)
+                rawtext = self.data.pages[top_articles[i]]
+                if len(rawtext) > 2400: rawtext = rawtext[:int(len(rawtext)/2)] + list("...")
+                y= {"id": str(top_articles[i]), "title": top_article_titles[i], "text": " ".join(rawtext)}
+                # stripped_title = title.replace("title: ", "")
+                a.append(y)
+                print(y)
+            print(a)
+
+            data = {'title': header, 'words': x, 'articles': a}
+            res = requests.post('http://localhost:5000/api/pytopics', json=data)
+            returned_data = res.json()
+
+            print(returned_data)
+            result = returned_data['result']
+            print(result)
 
     def em(self):
         """run expectation-maximization"""
@@ -94,7 +133,8 @@ class TopicModel:
         my_stringIObytes = io.BytesIO()
 
         plt.figure(figsize=(10,8))
-        sns.heatmap(self.pr_td, cmap="coolwarm")
+        hm = sns.heatmap(self.pr_td, cmap="coolwarm")
+        hm.set(xlabel='Topics', ylabel='Articles')
         plt.title("Topic Distribution for Each Article")
         # plt.show()
 
@@ -191,7 +231,7 @@ print("====================")
 # topic model, run EM and print the learned topics
 tm = TopicModel(data,topic_count=topic_count)
 ll = tm.em()
-tm.print_topics()
+tm.print_topics_and_top_articles()
 print("final log likelihood = %.8f" % ll)
 
 tm.Prtd_heatmap()
