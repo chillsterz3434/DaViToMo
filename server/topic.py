@@ -104,7 +104,7 @@ class TopicModel:
                 # list_cur = list(cursor)
                 # json_data = json.dumps(list_cur)
                 rawtext = self.data.pages[top_articles[i]]
-                if len(rawtext) > 2400: rawtext = rawtext[:int(len(rawtext)/2)] + list("...")
+                if len(rawtext) > 2400: rawtext = rawtext[:500] + list("...")
                 y= {"id": str(top_articles[i]), "title": top_article_titles[i], "text": " ".join(rawtext)}
                 # stripped_title = title.replace("title: ", "")
                 a.append(y)
