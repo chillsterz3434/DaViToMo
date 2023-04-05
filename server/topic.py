@@ -92,7 +92,7 @@ class TopicModel:
             top_article_titles = ([self.data.titles[a].strip() for a in top_articles])
             print("Top articles: " + "\n")
             for i in range(len(top_article_titles)):
-                y= {"id": top_articles[i], "title": top_article_titles[i]}
+                y= {"id": top_articles[i], "title": top_article_titles[i], "text": " ".join(self.data.pages[top_articles[i]])}
                 # stripped_title = title.replace("title: ", "")
                 a.append(y)
                 print(y)
