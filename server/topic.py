@@ -4,7 +4,6 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 from dataset import DataSet
 from wordcloud import WordCloud
-import json
 import io
 import base64
 import requests
@@ -100,13 +99,9 @@ class TopicModel:
             top_article_titles = ([self.data.titles[a].strip() for a in top_articles])
             print("Top articles: " + "\n")
             for i in range(len(top_article_titles)):
-                # cursor = collection.find({"_id": str(top_articles[i])}, {"_id":0, "title":0})
-                # list_cur = list(cursor)
-                # json_data = json.dumps(list_cur)
                 rawtext = self.data.pages[top_articles[i]]
                 if len(rawtext) > 2400: rawtext = rawtext[:500] + list("...")
                 y= {"id": str(top_articles[i]), "title": top_article_titles[i], "text": " ".join(rawtext)}
-                # stripped_title = title.replace("title: ", "")
                 a.append(y)
                 print(y)
             print(a)
@@ -130,7 +125,6 @@ class TopicModel:
 
     def Prtd_heatmap(self):
         # Initializing base64 object
-        my_stringIObytes = io.BytesIO()
 
         plt.figure(figsize=(10,8))
         hm = sns.heatmap(self.pr_td, cmap="coolwarm")
