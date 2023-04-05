@@ -5,8 +5,13 @@ import matplotlib.pyplot as plt
 from dataset import DataSet
 from wordcloud import WordCloud
 import json
+import io
+import base64
 import requests
 from download import main_page, db
+
+
+
 
 collection = db[main_page]
 
@@ -99,7 +104,7 @@ class TopicModel:
                 # list_cur = list(cursor)
                 # json_data = json.dumps(list_cur)
                 rawtext = self.data.pages[top_articles[i]]
-                if len(rawtext) > 2400: rawtext = rawtext[:int(len(rawtext)/2)] + list("...")
+                if len(rawtext) > 2400: rawtext = rawtext[:500] + list("...")
                 y= {"id": str(top_articles[i]), "title": top_article_titles[i], "text": " ".join(rawtext)}
                 # stripped_title = title.replace("title: ", "")
                 a.append(y)
@@ -124,13 +129,33 @@ class TopicModel:
         return ll
 
     def Prtd_heatmap(self):
+        # Initializing base64 object
+        my_stringIObytes = io.BytesIO()
+
         plt.figure(figsize=(10,8))
         hm = sns.heatmap(self.pr_td, cmap="coolwarm")
         hm.set(xlabel='Topics', ylabel='Articles')
         plt.title("Topic Distribution for Each Article")
-        plt.show()
+        # plt.show()
+
+        # Save it to a temporary buffer.
+        buf = io.BytesIO()
+        plt.savefig(buf, format="png")
+        # Embed the result in the html output.
+        image_64_encode = base64.b64encode(buf.getbuffer()).decode("ascii")
+
+
+        data={'title': 'Prtd_heatmap', 'image': image_64_encode}
+        res = requests.post('http://localhost:5000/api/pygraphs/prtdmap', json=data)
+        returned_data = res.json()
+
+        print(returned_data)
+        result = returned_data['result'] 
+        print(result)
 
     def Prwt_heatmap(self, n_words=70):
+        # Initializing base64 object
+        my_stringIObytes = io.BytesIO()
         # Get the top n_words most frequent words
         word_counts = self.data.vectors.sum(axis=0)
         top_word_indices = np.argsort(word_counts)[::-1][:n_words]
@@ -146,9 +171,22 @@ class TopicModel:
         ax.set_xlabel("Topic")
         ax.set_ylabel("Word")
         ax.set_title("Topic Distribution for Top %d Words" % n_words)
-        plt.show()
+        # plt.show()
+        # Base64 encoding
+        plt.savefig(my_stringIObytes, format="png")
+        image_64_encode = base64.b64encode(my_stringIObytes.getbuffer()).decode("ascii")
+        # Creating json object and sending it as a post request
+        data={'title': 'Prwt_heatmap', 'image': image_64_encode}
+        res = requests.post('http://localhost:5000/api/pygraphs/prwtmap', json=data)
+        returned_data = res.json()
+
+        print(returned_data)
+        result = returned_data['result'] 
+        print(result)
 
     def generate_wordcloud(self, n_words=100):
+        # Initializing base64 object
+        my_stringIObytes = io.BytesIO()
         # Get the probabilities of each word across all topics
         pr_w = self.pr_wt.sum(axis=0)
         sorted_indices = np.argsort(pr_w)[::-1][:n_words]
@@ -164,6 +202,18 @@ class TopicModel:
         plt.axis("off")
         plt.tight_layout(pad=0)
         plt.show()
+
+        # Base64 encoding
+        plt.savefig(my_stringIObytes, format="png")
+        image_64_encode = base64.b64encode(my_stringIObytes.getbuffer()).decode("ascii")
+        # Creating json object and sending it as a post request
+        data={'title': 'WordCloud', 'image': image_64_encode}
+        res = requests.post('http://localhost:5000/api/pygraphs/wordcloud', json=data)
+        returned_data = res.json()
+
+        print(returned_data)
+        result = returned_data['result'] 
+        print(result)
 
 # load dataset
 data = DataSet(count_limit=count_limit)
@@ -184,8 +234,10 @@ ll = tm.em()
 tm.print_topics_and_top_articles()
 print("final log likelihood = %.8f" % ll)
 
-# tm.Prtd_heatmap()
+tm.Prtd_heatmap()
 # tm.Prwt_heatmap()
 # tm.generate_wordcloud()
+
+
 
 

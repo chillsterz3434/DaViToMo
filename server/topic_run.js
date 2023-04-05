@@ -68,8 +68,10 @@ async function run(mainPage){
 
 var localTopics = []
 var localArticles = []
+var localPrtdHeatmap = {}
+var localPrwtHeatmap = {}
+var localWordCloud = {}
 var mainPage = ""
-var items=""
 
 
 
@@ -112,6 +114,24 @@ app.post("/api/pytopics", (req, res) => {
     res.json({result: "True"})
 });
 
+app.post("/api/pygraphs/prtdmap", (req, res) => {
+    // Retrieve json data from post body
+    localPrtdHeatmap = req.body;
+    console.log(req.body);
+    res.json({result: "True"})
+    
+})
+app.post("/api/pygraphs/prwtmap", (req, res) => {
+    localPrwtHeatmap = req.body;
+    console.log(req.body);
+    res.json({result: "True"})
+})
+app.post("/api/pygraphs/wordcloud", (req, res) => {
+    localWordCloud = req.body;
+    console.log(req.body);
+    res.json({result: "True"})
+})
+
 app.get("/api/topics", (req, res) => {
     res.send(localTopics);
 })
@@ -120,6 +140,18 @@ app.get("/api/articles", (req, res) => {
     // res.send(run(mainPage).catch(console.dir))
     run(mainPage).catch(console.dir)
     res.send(localArticles)
+})
+
+app.get("/api/graphs/prtdmap", (req, res) => {
+    res.send(localPrtdHeatmap);
+})
+
+app.get("/api/graphs/prwtmap", (req, res) => {
+    res.send(localPrwtHeatmap);
+})
+
+app.get("/api/graphs/wordcloud", (req, res) => {
+    res.send(localWordCloud);
 })
 
 

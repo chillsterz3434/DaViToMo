@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./DocumentPage.css"
 import TopicCard from "../Cards/TopicCard";
 import DocumentCard from "../Cards/DocumentCard";
@@ -8,8 +8,10 @@ function DocumentPage() {
 
   const location = useLocation();
   const heatmapData = [[1, 2, 3], [4, 5, 6], [7, 8, 9]];
-  const documentText = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.";
-  const relatedDocuments = ["Document 1", "Document 2", "Document 3"];
+  const [isLoading, setIsLoading] = useState(false);
+  const [prtdMap, setPrtdMap] = useState({})
+  // const [prwtMap, setPrwtMap] = useState({})
+  // const [wordCloud, setWordCloud] = useState({})
 
 
   const documents = [
@@ -38,14 +40,49 @@ function DocumentPage() {
         "words": ["palpatine", "sith", "vader", "dummy"]
     }
   ]
-  
-  // Add code to display the heatmap here
-  // Add code to display the document text here
-  
-  const relatedDocumentsList = document.querySelector('.related-documents ul');
-  
-  // for (let i = 0; i < relatedDocuments.length; i++) {
-  //   const li = document
+
+  useEffect(() => {
+    fecthPrtdMap();
+    // fetchPrwtMap();
+    // fetchWordCloud();
+  }, [])
+
+  async function fecthPrtdMap() {
+    setIsLoading(true)
+    const response = await fetch('api/graphs/prtdmap')
+    if(!response.ok) {
+      throw new Error('Request failed with status '+response.status)
+    }
+    const data = await response.json()
+    console.log(data)
+    setPrtdMap(data)
+    setIsLoading(false)
+  }
+
+  // async function fetchPrwtMap() {
+  //   setIsLoading(true)
+  //   const response = await fetch('api/graphs/prwtmap')
+  //   if(!response.ok) {
+  //     throw new Error('Request failed with status '+response.status)
+  //   }
+  //   const data = await response.json()
+  //   console.log(data)
+  //   setPrwtMap(data)
+  //   setIsLoading(false)
+  // }
+
+  // async function fetchWordCloud() {
+  //   setIsLoading(true)
+  //   const response = await fetch('api/graphs/wordcloud')
+  //   if(!response.ok) {
+  //     throw new Error('Request failed with status '+response.status)
+  //   }
+  //   const data = await response.json()
+  //   console.log(data)
+  //   setWordCloud(data)
+  //   setIsLoading(false)
+  // }
+
 
   return(
 
@@ -53,13 +90,13 @@ function DocumentPage() {
 <section className="banner">
       <h2>{location.state.title}</h2>
     </section>
-  <div class="heatmap">
+  <div className="heatmap">
     <h2>Heatmap</h2>
-    {/* <!-- Add the code to display the heatmap here --> */}
+    {!isLoading && <img src={`data:image/png;base64,${prtdMap.image}`} width={600} height={500}/>}
 
   </div>
 <section className="related-info">
-  <div class="related-topics">
+  <div className="related-topics">
     <h3>Related Topics</h3>
     {topics.map(topic => (
           <TopicCard
@@ -68,11 +105,11 @@ function DocumentPage() {
           />
         ))}
   </div>
-  <div class="document-text">
+  <div className="document-text">
     <h3>Document Text</h3>
     {location.state.text}
   </div>
-  <div class="related-documents">
+  <div className="related-documents">
     <h3>Related Documents</h3>
     {documents.map(doc => (
           <DocumentCard
