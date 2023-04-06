@@ -14,28 +14,16 @@ const wordList = document.querySelector(".word-info ul");
 const topicList = document.querySelector(".topic-info ul");
 
 const [isLoading, setIsLoading] = useState(false);
-const [articles, setArticles] = useState([]);
+
 const [topics, setTopics] = useState([]);
 
-useEffect(() => {
-  fetchArticles();
-}, [])
+
 
 useEffect(() => {
   fetchTopics();
 }, [])
 
-async function fetchArticles() {
-  setIsLoading(true)
-  const response = await fetch('api/articles')
-  if(!response.ok) {
-    throw new Error('Request failed with status '+response.status)
-  }
-  const data = await response.json()
-  console.log(data)
-  setArticles(data)
-  setIsLoading(false)
-}
+
 
 async function fetchTopics() {
   setIsLoading(true)

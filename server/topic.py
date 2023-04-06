@@ -124,7 +124,8 @@ class TopicModel:
         return ll
 
     def Prtd_heatmap(self):
-        # Initializing base64 object
+
+        x=[]
 
         plt.figure(figsize=(10,8))
         hm = sns.heatmap(self.pr_td, cmap="coolwarm")
@@ -132,14 +133,12 @@ class TopicModel:
         plt.title("Topic Distribution for Each Article")
         # plt.show()
 
-        # Save it to a temporary buffer.
-        buf = io.BytesIO()
-        plt.savefig(buf, format="png")
-        # Embed the result in the html output.
-        image_64_encode = base64.b64encode(buf.getbuffer()).decode("ascii")
+        for i in self.pr_td:
+            x.append(list(i))
 
 
-        data={'title': 'Prtd_heatmap', 'image': image_64_encode}
+        # data={'title': 'Prtd_heatmap', 'image': image_64_encode}
+        data={'data': x}
         res = requests.post('http://localhost:5000/api/pygraphs/prtdmap', json=data)
         returned_data = res.json()
 
@@ -148,8 +147,9 @@ class TopicModel:
         print(result)
 
     def Prwt_heatmap(self, n_words=70):
-        # Initializing base64 object
-        my_stringIObytes = io.BytesIO()
+
+        y=[]
+
         # Get the top n_words most frequent words
         word_counts = self.data.vectors.sum(axis=0)
         top_word_indices = np.argsort(word_counts)[::-1][:n_words]
@@ -166,11 +166,13 @@ class TopicModel:
         ax.set_ylabel("Word")
         ax.set_title("Topic Distribution for Top %d Words" % n_words)
         # plt.show()
-        # Base64 encoding
-        plt.savefig(my_stringIObytes, format="png")
-        image_64_encode = base64.b64encode(my_stringIObytes.getbuffer()).decode("ascii")
+
+        for i in self.pr_wt:
+            y.append(list(i))
+
         # Creating json object and sending it as a post request
-        data={'title': 'Prwt_heatmap', 'image': image_64_encode}
+        # data={'title': 'Prwt_heatmap', 'image': x}
+        data={'data': y}
         res = requests.post('http://localhost:5000/api/pygraphs/prwtmap', json=data)
         returned_data = res.json()
 
@@ -229,7 +231,7 @@ ll = tm.em()
 tm.print_topics_and_top_articles()
 print("final log likelihood = %.8f" % ll)
 
-# tm.Prtd_heatmap()
+tm.Prtd_heatmap()
 # tm.Prwt_heatmap()
 # tm.generate_wordcloud()
 

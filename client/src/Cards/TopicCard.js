@@ -46,7 +46,7 @@ TopicCard.propTypes = {
     topic: PropTypes.shape({
         title: PropTypes.string,
         words: PropTypes.arrayOf(PropTypes.string),
-        articles: PropTypes.arrayOf(PropTypes.string),
+        articles: PropTypes.arrayOf(PropTypes.object),
     }),
 }
 

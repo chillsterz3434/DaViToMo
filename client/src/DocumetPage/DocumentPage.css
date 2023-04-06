@@ -8,10 +8,9 @@ header {
 
 
 .heatmap {
-  width: 33%;
+  width: 100%;
   display: inline-block;
   vertical-align: top;
-  padding: 1em;
 }
 
 .related-topics {

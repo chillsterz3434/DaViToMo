@@ -3,15 +3,17 @@ import "./DocumentPage.css"
 import TopicCard from "../Cards/TopicCard";
 import DocumentCard from "../Cards/DocumentCard";
 import { useLocation } from "react-router-dom";
+import { HeatMapComponent, Inject, Legend, Tooltip, Adaptor, ITooltipEventArgs } from '@syncfusion/ej2-react-heatmap';
+
 
 function DocumentPage() {
 
   const location = useLocation();
-  const heatmapData = [[1, 2, 3], [4, 5, 6], [7, 8, 9]];
   const [isLoading, setIsLoading] = useState(false);
-  const [prtdMap, setPrtdMap] = useState({})
-  const [prwtMap, setPrwtMap] = useState({})
-  const [wordCloud, setWordCloud] = useState({})
+  const [prtdMapData, setPrtdMapData] = useState([]);
+  const [articles, setArticles] = useState([]);
+  const [prwtMapData, setPrwtMapData] = useState([]);
+  // const [wordCloud, setWordCloud] = useState({})
 
 
   const documents = [
@@ -41,11 +43,15 @@ function DocumentPage() {
     }
   ]
 
+ 
+
   useEffect(() => {
     fecthPrtdMap();
+    fetchArticles();
     fetchPrwtMap();
-    fetchWordCloud();
+    // fetchWordCloud();
   }, [])
+
 
   async function fecthPrtdMap() {
     setIsLoading(true)
@@ -55,7 +61,19 @@ function DocumentPage() {
     }
     const data = await response.json()
     console.log(data)
-    setPrtdMap(data)
+    setPrtdMapData(data.data)
+    setIsLoading(false)
+  }
+
+  async function fetchArticles() {
+    setIsLoading(true)
+    const response = await fetch('api/articles')
+    if(!response.ok) {
+      throw new Error('Request failed with status '+response.status)
+    }
+    const data = await response.json()
+    console.log(data)
+    setArticles(data)
     setIsLoading(false)
   }
 
@@ -67,20 +85,24 @@ function DocumentPage() {
     }
     const data = await response.json()
     console.log(data)
-    setPrwtMap(data)
+    setPrwtMapData(data.data)
     setIsLoading(false)
   }
 
-  async function fetchWordCloud() {
-    setIsLoading(true)
-    const response = await fetch('api/graphs/wordcloud')
-    if(!response.ok) {
-      throw new Error('Request failed with status '+response.status)
-    }
-    const data = await response.json()
-    console.log(data)
-    setWordCloud(data)
-    setIsLoading(false)
+  // async function fetchWordCloud() {
+  //   setIsLoading(true)
+  //   const response = await fetch('api/graphs/wordcloud')
+  //   if(!response.ok) {
+  //     throw new Error('Request failed with status '+response.status)
+  //   }
+  //   const data = await response.json()
+  //   console.log(data)
+  //   setWordCloud(data)
+  //   setIsLoading(false)
+  // }
+
+  function tooltipTemplate(args) {
+    args.content = [args.yLabel + ' | ' + args.xLabel + ' : ' + args.value + ' %'];
   }
 
 
@@ -92,10 +114,85 @@ function DocumentPage() {
     </section>
   <div className="heatmap">
     <h2>Heatmap</h2>
-    {!isLoading && <img src={`data:image/png;base64,${prtdMap.image}`} width={600} height={500}/>}
-    {!isLoading && <img src={`data:image/png;base64,${prwtMap.image}`} width={600} height={500}/>}
-    {!isLoading && <img src={`data:image/png;base64,${wordCloud.image}`} width={600} height={500}/>}
-
+    {/* <HeatMapComponent
+      titleSettings={{
+        text: 'Probabaility of a Topic Being in an Article',
+        textStyle: {
+          size: '15px',
+          fontWeight: '500',
+          fontStyle: 'Normal',
+          fontFamily: 'Segoe UI'
+        }
+      }}
+      xAxis={{
+        labels: 
+          articles
+        ,
+        labelRotation: 90,
+        labelIntersectAction: 'None',
+        visible: false
+      }}
+      yAxis={{
+        labels: [
+          'Topic 0',
+          'Topic 1',
+          'Topic 2',
+          'Topic 3',
+          'Topic 4',
+          'Topic 5',
+          'Topic 6',
+          'Topic 7',
+          'Topic 8',
+          'Topic 9',
+          'Topic 10',
+          'Topic 11'
+          
+        ]
+      }}
+      paletteSettings = {{
+        colorGradientMode: 'Row'
+    }}
+      legendSettings={{
+        visible: false
+      }}
+      renderingMode= { 'SVG' }
+      tooltipRender={tooltipTemplate}
+      dataSource={prtdMapData}
+    >
+      <Inject services={[Legend, Tooltip, Adaptor]} />
+    </HeatMapComponent> */}
+    <HeatMapComponent
+      titleSettings={{
+        text: 'Probabaility of a Topic Being in an Article',
+        textStyle: {
+          size: '15px',
+          fontWeight: '500',
+          fontStyle: 'Normal',
+          fontFamily: 'Segoe UI'
+        }
+      }}
+      xAxis={{
+        valueType:"Numeric",
+        minimum:1,
+        maximum:100
+      }}
+      yAxis={{
+        valueType:"Numeric",
+        minimum:1,
+        maximum:100
+      }}
+      paletteSettings = {{
+        colorGradientMode: 'Row'
+    }}
+      legendSettings={{
+        visible: false
+      }}
+      renderingMode= { 'SVG' }
+      tooltipRender={tooltipTemplate}
+      dataSource={prwtMapData}
+    >
+      <Inject services={[Legend, Tooltip, Adaptor]} />
+    </HeatMapComponent>
   </div>
 <section className="related-info">
   <div className="related-topics">

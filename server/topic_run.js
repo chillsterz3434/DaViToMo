@@ -32,16 +32,10 @@ async function run(mainPage){
                 console.log(`Successfully found ${items.length} documents.`)
                 // items.forEach(console.log)
                 items.map(doc => {
-                    localArticles.push(doc)
+                    localArticles.push(doc.title)
                 })
                 return items
             })
-        // col.findOne();
-        // const myDoc = await col.findOne();
-
-        // console.log(myDoc);
-
-
     } catch (e){
         console.log(e.stack)
     } 
