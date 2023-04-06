@@ -70,6 +70,7 @@ header, nav, main, footer { display: block; }
 .bios{
     flex-direction: column;
     padding-bottom: 0%;
+    height: 200px;
 }
 .bio{
     height: 200px;
