@@ -68,7 +68,7 @@ main ul { list-style-position: inside; }
 header, nav, main, footer { display: block; }
 
 .bios{
-    flex-direction: row;
+    flex-direction: column;
     padding-bottom: 0%;
 }
 .bio{
