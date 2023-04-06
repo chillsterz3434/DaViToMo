@@ -72,7 +72,7 @@ var mainPage = ""
 
 // Tell express to use the body-parser middleware and to not parse extended bodies
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
+app.use(bodyParser.json( {limit: '5mb'} ));
 app.use(cors())
 
 

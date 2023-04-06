@@ -100,7 +100,7 @@ class TopicModel:
             print("Top articles: " + "\n")
             for i in range(len(top_article_titles)):
                 rawtext = self.data.pages[top_articles[i]]
-                rawtext = rawtext[:500] + list("...")
+                # rawtext = rawtext[:500] + list("...")
                 y= {"id": str(top_articles[i]), "title": top_article_titles[i], "text": " ".join(rawtext)}
                 a.append(y)
                 print(y)
@@ -232,7 +232,7 @@ tm.print_topics_and_top_articles()
 print("final log likelihood = %.8f" % ll)
 
 tm.Prtd_heatmap()
-# tm.Prwt_heatmap()
+tm.Prwt_heatmap()
 # tm.generate_wordcloud()
 
 

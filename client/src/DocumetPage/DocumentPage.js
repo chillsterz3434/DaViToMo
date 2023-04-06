@@ -114,7 +114,7 @@ function DocumentPage() {
     </section>
   <div className="heatmap">
     <h2>Heatmap</h2>
-    {/* <HeatMapComponent
+    <HeatMapComponent
       titleSettings={{
         text: 'Probabaility of a Topic Being in an Article',
         textStyle: {
@@ -160,8 +160,8 @@ function DocumentPage() {
       dataSource={prtdMapData}
     >
       <Inject services={[Legend, Tooltip, Adaptor]} />
-    </HeatMapComponent> */}
-    <HeatMapComponent
+    </HeatMapComponent>
+    {/* <HeatMapComponent
       titleSettings={{
         text: 'Probabaility of a Topic Being in an Article',
         textStyle: {
@@ -192,7 +192,7 @@ function DocumentPage() {
       dataSource={prwtMapData}
     >
       <Inject services={[Legend, Tooltip, Adaptor]} />
-    </HeatMapComponent>
+    </HeatMapComponent> */}
   </div>
 <section className="related-info">
   <div className="related-topics">
