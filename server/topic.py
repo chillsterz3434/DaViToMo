@@ -168,7 +168,7 @@ class TopicModel:
         # plt.show()
 
         for i in self.pr_wt:
-            y.append(list(i))
+            y.append(list(10000*i))
 
         # Creating json object and sending it as a post request
         # data={'title': 'Prwt_heatmap', 'image': x}
@@ -233,7 +233,7 @@ print("final log likelihood = %.8f" % ll)
 
 tm.Prtd_heatmap()
 tm.Prwt_heatmap()
-# tm.generate_wordcloud()
+tm.generate_wordcloud()
 
 
 
