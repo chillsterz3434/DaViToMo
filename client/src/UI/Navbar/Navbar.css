@@ -20,10 +20,21 @@ h1 {
     padding: 14px 16px;
     text-decoration: none;
     font-size: 17px;
+    border-radius: 50%;
     }
     
-    .topnav a.active {
-    background-color: #5694DF;
-    color: white;
+    .topnav a:hover {
+    color: #f6f99e;
+    background-color: black;
+    transition: 0.3s ease-in-out;
+    }
+
+    .topnav a:hover::after{
+        content: "";
+        width: 30%;
+        height: 2px;
+        background: #f6f99e;
+        /* bottom: -4px; */
+        left: 20px;
     }
     
