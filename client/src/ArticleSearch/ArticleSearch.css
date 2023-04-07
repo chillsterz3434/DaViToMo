@@ -3,3 +3,27 @@ header {
 	color: #fff;
 	padding: 1rem;
 }
+
+.search{
+	align-items: center;
+	justify-content: center;
+	display: flex;
+}
+
+.main-info{
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	/* width:150%; */
+}
+
+.topics{
+	width: 40%;
+	float: left;
+}
+
+.graphs{
+	width: 60%;
+	float: right;
+	height: max-content;
+}

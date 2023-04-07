@@ -8,11 +8,6 @@ function TopicPage() {
 
   const location = useLocation();
 
-  const apiUrl = "/api/topics";
-const topWords = document.querySelector(".top-topics ul");
-const wordList = document.querySelector(".word-info ul");
-const topicList = document.querySelector(".topic-info ul");
-
 const [isLoading, setIsLoading] = useState(false);
 
 const [topics, setTopics] = useState([]);
@@ -21,6 +16,7 @@ const [topics, setTopics] = useState([]);
 
 useEffect(() => {
   fetchTopics();
+  
 }, [])
 
 
@@ -37,75 +33,8 @@ async function fetchTopics() {
 }
 
 
-// const topics = [
-//   {
-//       "title": "Topic 0",
-//       "words": ["games", "shooter", "first", "dummy"]
-//   },
-//   {
-//       "title": "Topic 1",
-//       "words": ["wars", "space", "saber", "dummy"]
-//   },
-//   {
-//       "title": "Topic 2",
-//       "words": ["palpatine", "sith", "vader", "dummy"]
-//   }
-// ]
-const titleTopic = [
-  {
-    "title": "Topic 0",
-    "words": ["games", "shooter", "first", "dummy","wars", "space", "saber","palpatine", "sith", "vader"]
-  }
-]
 
 
-// // Function to fetch data from API
-// async function fetchData(url) {
-//   try {
-//     const response = await fetch(url);
-//     const data = await response.json();
-//     return data;
-//   } catch (error) {
-//     console.error(error);
-//   }
-// }
-
-// // Function to display top words on the page
-// function displayTopTopics(topic) {
-//   topic.words.slice(0, 3).forEach(word => {
-//     const li = document.createElement("li");
-//     li.textContent = word;
-//     topWords.appendChild(li);
-//   });
-// }
-
-// // Function to display words, related documents, and related topics on the page
-// function displayRelatedInfo(info) {
-// //   info.words.forEach(word => {
-// //     const li = document.createElement("li");
-// //     li.textContent = word;
-// //     wordList.appendChild(li);
-// //   });
-// //   info.map(doc => {
-// //     <li>{doc.title}</li>
-// //   });
-// //   info.topics.forEach(topic => {
-// //     const li = document.createElement("li");
-// //     li.textContent = topic.name;
-// //     topicList.appendChild(li);
-// //   });
-// }
-
-// // Call fetchData function to get data from API
-// fetchData(apiUrl)
-//   .then(data => {
-//     // Display top 3 topics on the page
-//     displayTopTopics(data.topics);
-
-//     // Display words, related documents, and related topics on the page
-//     displayRelatedInfo(data.relatedInfo);
-//   })
-//   .catch(error => console.error(error));
 
   return (
     <div>
