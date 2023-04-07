@@ -167,12 +167,14 @@ class TopicModel:
         ax.set_title("Topic Distribution for Top %d Words" % n_words)
         # plt.show()
 
+        j=0
         for i in self.pr_wt:
-            y.append(list(10000*i))
+            j=j+1
+            if j < 70: y.append(list(10000*i))
 
         # Creating json object and sending it as a post request
         # data={'title': 'Prwt_heatmap', 'image': x}
-        data={'data': y}
+        data={'data': y, 'words': top_words}
         res = requests.post('http://localhost:5000/api/pygraphs/prwtmap', json=data)
         returned_data = res.json()
 

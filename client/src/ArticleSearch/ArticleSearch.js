@@ -21,7 +21,8 @@ function ArticleSearch() {
   const [showButton, setShowButton] = useState(false)
   const [prwtMapData, setPrwtMapData] = useState([]);
   const [prtdMapData, setPrtdMapData] = useState([]);
-  // const [wordCloud, setWordCloud] = useState({})
+  const [wordCloud, setWordCloud] = useState({});
+  const [words, setWords] = useState([]);
 
 
 //   const topics = [
@@ -40,12 +41,11 @@ function ArticleSearch() {
 // ]
 
 useEffect(() => {
-  fetchTopics()
+  fetchTopics();
   fecthPrtdMap();
   fetchArticles();
   fetchPrwtMap();
-  
-
+  fetchWordCloud();
 },[])
 
 async function fecthPrtdMap() {
@@ -81,20 +81,21 @@ async function fetchPrwtMap() {
   const data = await response.json()
   console.log(data)
   setPrwtMapData(data.data)
+  setWords(data.words)
   setIsLoading(false)
 }
 
-  // async function fetchWordCloud() {
-  //   setIsLoading(true)
-  //   const response = await fetch('api/graphs/wordcloud')
-  //   if(!response.ok) {
-  //     throw new Error('Request failed with status '+response.status)
-  //   }
-  //   const data = await response.json()
-  //   console.log(data)
-  //   setWordCloud(data)
-  //   setIsLoading(false)
-  // }
+  async function fetchWordCloud() {
+    setIsLoading(true)
+    const response = await fetch('api/graphs/wordcloud')
+    if(!response.ok) {
+      throw new Error('Request failed with status '+response.status)
+    }
+    const data = await response.json()
+    console.log(data)
+    setWordCloud(data.image)
+    setIsLoading(false)
+  }
 
 
 
@@ -166,7 +167,7 @@ function filterData(event){
         )}
         </div>
         <div className="graphs">
-          {!isLoading && !articles &&
+          {/* {!isLoading &&
             <HeatMapComponent
             titleSettings={{
               text: 'Probabaility of a Topic Being in an Article',
@@ -178,9 +179,7 @@ function filterData(event){
               }
             }}
             xAxis={{
-              labels: 
-                articles
-              ,
+              labels: articles,
               labelRotation: 90,
               labelIntersectAction: 'None',
               visible: false
@@ -214,42 +213,59 @@ function filterData(event){
             height="600px"
           >
             <Inject services={[Legend, Tooltip, Adaptor]} />
+          </HeatMapComponent> 
+          } */}
+          {!isLoading && 
+            <HeatMapComponent
+            titleSettings={{
+              text: 'Probabaility of the Top 70 Words Being in a Topic (x10,000)',
+              textStyle: {
+                size: '15px',
+                fontWeight: '500',
+                fontStyle: 'Normal',
+                fontFamily: 'Segoe UI'
+              }
+            }}
+            xAxis={{
+              labels: [
+                'Topic 0',
+                'Topic 1',
+                'Topic 2',
+                'Topic 3',
+                'Topic 4',
+                'Topic 5',
+                'Topic 6',
+                'Topic 7',
+                'Topic 8',
+                'Topic 9',
+                'Topic 10',
+                'Topic 11'
+                
+              ]
+            }}
+            yAxis={{
+              labels: words,
+              minimum: 0,
+              maximum: 69
+            }}
+            paletteSettings = {{
+              colorGradientMode: 'Row'
+          }}
+            legendSettings={{
+              visible: false
+            }}
+            renderingMode= { 'SVG' }
+            tooltipRender={tooltipTemplate}
+            dataSource={prwtMapData}
+          >
+            <Inject services={[Legend, Tooltip, Adaptor]} />
           </HeatMapComponent>
           }
+          {!isLoading && 
+            <img src={`data:image/png;base64,${wordCloud}`} alt="Word Cloud" height={500} width={800}/>
+          }
         
-    {/* <HeatMapComponent
-      titleSettings={{
-        text: 'Probabaility of a Topic Being in an Article',
-        textStyle: {
-          size: '15px',
-          fontWeight: '500',
-          fontStyle: 'Normal',
-          fontFamily: 'Segoe UI'
-        }
-      }}
-      xAxis={{
-        valueType:"Numeric",
-        minimum:1,
-        maximum:10
-      }}
-      yAxis={{
-        valueType:"Numeric",
-        minimum:1,
-        maximum:2300
-      }}
-      paletteSettings = {{
-        colorGradientMode: 'Row'
-    }}
-      legendSettings={{
-        visible: false
-      }}
-      renderingMode= { 'SVG' }
-      tooltipRender={tooltipTemplate}
-      dataSource={prwtMapData}
-      height="1000px"
-    >
-      <Inject services={[Legend, Tooltip, Adaptor]} />
-    </HeatMapComponent> */}
+    
         </div>
       </section>
       
