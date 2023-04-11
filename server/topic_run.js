@@ -76,9 +76,9 @@ app.use(bodyParser.json( {limit: '5mb'} ));
 app.use(cors())
 
 
-// app.get('/api/articles', (req, res) => {
-//     res.json({message: "Hello from server"})
-// })
+app.get('/', (req, res) => {
+    res.json({message: "Hello from server"})
+})
 
 
  app.get('/api/articles/:title', (req, res) => {
