@@ -104,25 +104,25 @@ app.post("/api/pytopics", (req, res) => {
     // Retrieve json data from post body
     var topics = req.body;
     localTopics.push(topics)
-    console.log(topics);
+    // console.log(topics);
     res.json({result: "True"})
 });
 
 app.post("/api/pygraphs/prtdmap", (req, res) => {
     // Retrieve json data from post body
     localPrtdHeatmap = req.body;
-    console.log(req.body);
+    // console.log(req.body);
     res.json({result: "True"})
     
 })
 app.post("/api/pygraphs/prwtmap", (req, res) => {
     localPrwtHeatmap = req.body;
-    console.log(req.body);
+    // console.log(req.body);
     res.json({result: "True"})
 })
 app.post("/api/pygraphs/wordcloud", (req, res) => {
     localWordCloud = req.body;
-    console.log(req.body);
+    // console.log(req.body);
     res.json({result: "True"})
 })
 
