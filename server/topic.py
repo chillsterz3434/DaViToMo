@@ -97,14 +97,13 @@ class TopicModel:
             # Print top articles for the current topic
             top_articles = np.argsort(self.pr_td[:, t])[-10:][::-1]
             top_article_titles = ([self.data.titles[a].strip() for a in top_articles])
-            print("Top articles: " + "\n")
+            # print("Top articles: " + "\n")
             for i in range(len(top_article_titles)):
                 rawtext = self.data.pages[top_articles[i]]
-                # rawtext = rawtext[:500] + list("...")
                 y= {"id": str(top_articles[i]), "title": top_article_titles[i], "text": " ".join(rawtext)}
                 a.append(y)
-                print(y)
-            print(a)
+                # print(y)
+            # print(a)
 
             data = {'title': header, 'words': x, 'articles': a}
             res = requests.post('http://localhost:5000/api/pytopics', json=data)
@@ -120,7 +119,7 @@ class TopicModel:
             topics = tm._predict()
             tm._learn(topics)
             ll = tm._log_likelihood()
-            print("iteration %d/%d: ll = %.4f" % (it+1,max_iterations,ll))
+            # print("iteration %d/%d: ll = %.4f" % (it+1,max_iterations,ll))
         return ll
 
     def Prtd_heatmap(self):
@@ -218,13 +217,13 @@ class TopicModel:
 data = DataSet(count_limit=count_limit)
 
 # print stats
-print("====================")
-print("word length limit: %d" % data.length_limit)
-print("word count limit: %d" % data.count_limit)
-print("====================")
-print("page count: %d" % data.page_count)
-print("word count: %d" % data.word_count)
-print("====================")
+# print("====================")
+# print("word length limit: %d" % data.length_limit)
+# print("word count limit: %d" % data.count_limit)
+# print("====================")
+# print("page count: %d" % data.page_count)
+# print("word count: %d" % data.word_count)
+# print("====================")
 #data.print_common_words()
 
 # topic model, run EM and print the learned topics

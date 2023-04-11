@@ -24,6 +24,7 @@ main_page = sys.argv[1]
 # # Create a new collection to store the articles with the name of the main page
 collection = db[main_page]
 
+articles=[]
 
 col = collection.find_one()
 if col == None:
@@ -43,7 +44,7 @@ if col == None:
         if link.startswith("List"): continue
 
         # Try to download the page
-        print(link)
+        # print(link)
         try:
             page = wp.page(link, auto_suggest=False, preload=False)
         except wp.exceptions.PageError:
@@ -69,7 +70,7 @@ if col == None:
         clean_text = re.sub('[^A-Za-z]+', ' ', text)
 
         # Insert the article into the MongoDB collection
-        article = {"_id": pageid, "title": title,  "text": clean_text}
+        article = ({"_id": pageid, "title": title,  "text": clean_text})
         collection.insert_one(article)
     
 
