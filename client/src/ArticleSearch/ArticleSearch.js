@@ -15,12 +15,10 @@ registerLicense('Mgo+DSMBaFt+QHFqVk5rXVNbdV5dVGpAd0N3RGlcdlR1fUUmHVdTRHRcQlljT3x
 function ArticleSearch() {
 
   const [searchInput, setSearchInput] = useState("");
-  const [articles, setArticles] = useState([]);
   const [topics, setTopics] = useState([])
   const [isLoading, setIsLoading] = useState(false)
   const [showButton, setShowButton] = useState(false)
   const [prwtMapData, setPrwtMapData] = useState([]);
-  const [prtdMapData, setPrtdMapData] = useState([]);
   const [wordCloud, setWordCloud] = useState({});
   const [words, setWords] = useState([]);
 
@@ -42,35 +40,13 @@ function ArticleSearch() {
 
 useEffect(() => {
   fetchTopics();
-  fecthPrtdMap();
-  fetchArticles();
   fetchPrwtMap();
   fetchWordCloud();
 },[])
 
-async function fecthPrtdMap() {
-  setIsLoading(true)
-  const response = await fetch('api/graphs/prtdmap')
-  if(!response.ok) {
-    throw new Error('Request failed with status '+response.status)
-  }
-  const data = await response.json()
-  console.log(data)
-  setPrtdMapData(data.data)
-  setIsLoading(false)
-}
 
-async function fetchArticles() {
-  setIsLoading(true)
-  const response = await fetch('api/articles')
-  if(!response.ok) {
-    throw new Error('Request failed with status '+response.status)
-  }
-  const data = await response.json()
-  console.log(data)
-  setArticles(data)
-  setIsLoading(false)
-}
+
+
 
 async function fetchPrwtMap() {
   setIsLoading(true)
@@ -167,54 +143,7 @@ function filterData(event){
         )}
         </div>
         <div className="graphs">
-          {/* {!isLoading &&
-            <HeatMapComponent
-            titleSettings={{
-              text: 'Probabaility of a Topic Being in an Article',
-              textStyle: {
-                size: '15px',
-                fontWeight: '500',
-                fontStyle: 'Normal',
-                fontFamily: 'Segoe UI'
-              }
-            }}
-            xAxis={{
-              labels: articles,
-              labelRotation: 90,
-              labelIntersectAction: 'None',
-              visible: false
-            }}
-            yAxis={{
-              labels: [
-                'Topic 0',
-                'Topic 1',
-                'Topic 2',
-                'Topic 3',
-                'Topic 4',
-                'Topic 5',
-                'Topic 6',
-                'Topic 7',
-                'Topic 8',
-                'Topic 9',
-                'Topic 10',
-                'Topic 11'
-                
-              ]
-            }}
-            paletteSettings = {{
-              colorGradientMode: 'Row'
-          }}
-            legendSettings={{
-              visible: false
-            }}
-            renderingMode= { 'SVG' }
-            tooltipRender={tooltipTemplate}
-            dataSource={prtdMapData}
-            height="600px"
-          >
-            <Inject services={[Legend, Tooltip, Adaptor]} />
-          </HeatMapComponent> 
-          } */}
+          
           {!isLoading && 
             <HeatMapComponent
             titleSettings={{
