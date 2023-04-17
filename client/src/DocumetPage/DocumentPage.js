@@ -75,7 +75,7 @@ function DocumentPage() {
         ))}
   </div>
   <div className="document-text">
-    <h3>Document Text</h3>
+    <h3>Document Corpus</h3>
     {location.state.text}
   </div>
   <div className="related-documents">
