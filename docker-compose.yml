@@ -1,0 +1,56 @@
+version: '3.8'
+services:
+  mongodb:
+    container_name: mongodb
+    image: mongo:6.0
+    volumes:
+      - ~/mongo:/data/db
+    ports:
+      - "27017:27017"
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=app_user
+      - MONGO_INITDB_ROOT_PASSWORD=app_password
+      - MONGO_INITDB_DATABASE=DaViToMo
+  nginx:
+    depends_on:
+      - api
+      - client
+    restart: always
+    build:
+      dockerfile: Dockerfile
+      context: ./nginx
+    ports:
+      - "3050:80"
+  api:
+    build:
+      dockerfile: Dockerfile
+      context: "./server"
+    depends_on:
+      - mongodb
+    volumes:
+      - /app/node_modules
+      - ./server:/app
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: app_user
+      MONGO_INITDB_ROOT_PASSWORD: app_password
+      MONGO_INITDB_DATABASE: DaViToMo
+      MYSQL_HOST_IP: mongodb
+  client:
+    stdin_open: true
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+    build:
+      dockerfile: Dockerfile
+      context: ./client
+    volumes:
+      - /app/node_modules
+      - ./client:/app
+  adminer:
+      image: adminer:latest
+      restart: unless-stopped
+      ports:
+        - 8000:8080
+      depends_on:
+        - mongodb
+      environment:
+        ADMINER_DEFAULT_SERVER: mongodb
