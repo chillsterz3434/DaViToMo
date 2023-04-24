@@ -9,7 +9,7 @@ function DocumentPage() {
 
   const location = useLocation();
   const [isLoading, setIsLoading] = useState(false);
-
+  const [topics, setTopics] = useState([]);
   const [articles, setArticles] = useState([]);
 
 
@@ -26,32 +26,35 @@ function DocumentPage() {
       "text": "This is an article about Destiny 2"
     }
   ]
-  const topics = [
-    {
-        "title": "Topic 0",
-        "words": ["games", "shooter", "first", "dummy"]
-    },
-    {
-        "title": "Topic 1",
-        "words": ["wars", "space", "saber", "dummy"]
-    },
-    {
-        "title": "Topic 2",
-        "words": ["palpatine", "sith", "vader", "dummy"]
+  // const topics = [
+  //   {
+  //       "title": "Topic 0",
+  //       "words": ["games", "shooter", "first", "dummy"]
+  //   },
+  //   {
+  //       "title": "Topic 1",
+  //       "words": ["wars", "space", "saber", "dummy"]
+  //   },
+  //   {
+  //       "title": "Topic 2",
+  //       "words": ["palpatine", "sith", "vader", "dummy"]
+  //   }
+  // ]
+
+  useEffect(() => {
+    fetchTopics();
+  },[])
+
+  async function fetchTopics() {
+    setIsLoading(true)
+    const response = await fetch('api/alltopics')
+    if (!response.ok) {
+      throw new Error('Request failed with status '+response.status)
     }
-  ]
-
- 
-
-
-
-
- 
-
-
-
-
-
+    const data = await response.json()
+    setTopics(data)
+    setIsLoading(false)
+  }
 
   return(
 
@@ -67,12 +70,15 @@ function DocumentPage() {
 <section className="related-info">
   <div className="related-topics">
     <h3>Related Topics</h3>
-    {topics.map(topic => (
+    {isLoading && <p>Loading Topics... This may take a while for large articles...</p>}
+    {!isLoading ? topics.map(topic => (
           <TopicCard
           topic={topic}
           key={topic.title}
           />
-        ))}
+        )) : <p>
+          No topics found
+          </p>}
   </div>
   <div className="document-text">
     <h3>Document Corpus</h3>
@@ -80,11 +86,13 @@ function DocumentPage() {
   </div>
   <div className="related-documents">
     <h3>Related Documents</h3>
-    {documents.map(doc => (
-          <DocumentCard
+    {topics.map(topic => (
+      topic.articles.map(doc =>
+        <DocumentCard
           doc={doc}
           key={doc.id}
           />
+        )
         ))}
   </div>
   </section>

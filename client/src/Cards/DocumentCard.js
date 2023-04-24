@@ -10,8 +10,24 @@ const DocumentCard = (props) => {
     const navigate = useNavigate();
 
     const toDocumentPage=()=> {
+        submitArticle(props.doc.title)
         navigate('/document', {state:{id:props.doc.id, title:props.doc.title, text:props.doc.text}})
     }
+
+    async function submitArticle(a) {
+        // setIsLoading(true)
+          try {
+            await fetch(`/api/articles/${a}`, {
+              method: "GET",
+              headers: {
+                "Content-type": "application/json()",
+              },
+            })
+            
+          } catch (error) {
+            console.log(error)
+          }
+      }
 
     return(
         <button className='document-card' onClick={()=>{toDocumentPage()}}>

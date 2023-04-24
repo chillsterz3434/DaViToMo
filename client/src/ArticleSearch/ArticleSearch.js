@@ -103,7 +103,7 @@ function filterData(event){
 
   async function fetchTopics() {
     setIsLoading(true)
-    const response = await fetch('api/topics')
+    const response = await fetch('api/alltopics')
     if (!response.ok) {
       throw new Error('Request failed with status '+response.status)
     }
@@ -129,9 +129,10 @@ function filterData(event){
         <input type="text" placeholder="Enter article..."  onChange={filterData} value={searchInput}/>
           {!showButton && <button type="submit" id="search-btn" className="btn" onClick={handleClick}>Run Script</button>}
       </form>
-      {isLoading && topics=="" && <p>Loading Topics...</p>}
+      {isLoading && <p>Loading Topics... This may take a while...</p>}
       <section className="main-info">
         <div className="topics">
+          
           {!isLoading && topics && (topics.length > 0 ? topics.map(topic => (
           <TopicCard
             topic={topic}

@@ -128,6 +128,11 @@ app.post("/api/pygraphs/wordcloud", (req, res) => {
 
 app.get("/api/topics", (req, res) => {
     res.send(localTopics);
+    localTopics=[]
+})
+
+app.get("/api/alltopics", (req,res) => {
+    res.send(localTopics);
 })
 
 app.get("/api/articles", (req, res) => {
@@ -138,14 +143,17 @@ app.get("/api/articles", (req, res) => {
 
 app.get("/api/graphs/prtdmap", (req, res) => {
     res.send(localPrtdHeatmap);
+    localPrtdHeatmap={}
 })
 
 app.get("/api/graphs/prwtmap", (req, res) => {
     res.send(localPrwtHeatmap);
+    localPrwtHeatmap={}
 })
 
 app.get("/api/graphs/wordcloud", (req, res) => {
     res.send(localWordCloud);
+    localWordCloud={}
 })
 
 
