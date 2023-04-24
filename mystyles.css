@@ -81,7 +81,7 @@ p{
 
 .column {
     float: left;
-    padding: 5px;
+    padding: 20px;
 }
 
 .row::after {
